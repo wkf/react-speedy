@@ -195,10 +195,11 @@ $color-less-light: #E5E7E7;
   }
 
   .stat__name {
-    @include font-weight(medium);
+    @include font-weight(normal);
   }
 
-  .stat__name {
+  .stat__value {
+    @include font-weight(medium);
     color: $color-highlight;
   }
 
@@ -226,6 +227,10 @@ $color-less-light: #E5E7E7;
     padding-left: 20px;
     padding-right: 20px;
     text-align: left;
+  }
+
+  .problem--critical {
+    color: $color-worse;
   }
 
   .benefit a, .problem a {
@@ -263,5 +268,4 @@ $color-less-light: #E5E7E7;
   .button--switch:hover {
     background-color: darken($color-highlight, 10%);
   }
-
 }
