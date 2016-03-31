@@ -1,0 +1,288 @@
+/*
+* Text blocks where some of the markdown generated tags have a special look'n feel
+*/
+
+.editorial-text {
+  strong {
+   color: $color-highlight;
+  }
+}
+
+.pullquote {
+  @extend .editorial-text;
+}
+
+.intro {
+  @extend .epsilon;
+  @include font-weight(normal);
+  color: $color-dark;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
+
+.sidenote {
+  @extend .small;
+  @include font-weight(normal);
+  font-style: normal;
+  color: $color-dark;
+  display: inline-block;
+  line-height: 1.5;
+}
+
+
+/*
+ * Typography for markdown generated tags
+ */
+
+
+/*
+ * Headers
+ */
+
+@mixin text-headline {
+  @include font-weight(normal);
+  line-height: 25px;
+  letter-spacing: normal;
+  text-transform: uppercase;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: $color-darker;
+  li & {
+    margin-top: 20px;
+  }
+}
+
+.text-h1, .text h1 {
+  @include text-headline;
+  @include font-weight(medium);
+  font-size: 21px;
+  border-top: 2px solid $color-highlight;
+  padding-top: 90px;
+  margin-bottom: 30px;
+}
+
+.text-h2, .text h2 {
+  @extend .large;
+  @include text-headline;
+}
+
+.text-h3, .text h3 {
+  @extend .medium;
+  @include text-headline;
+}
+
+.text-h4, .text h4 {
+  @extend .small;
+  @include text-headline;
+}
+
+.text-h5, .text h5 {
+  @extend .small;
+  @include text-headline;
+  text-transform: none;
+}
+
+.text-h6, .text h6 {
+  @extend .x-small;
+  @include text-headline;
+  text-transform: none;
+}
+
+
+/*
+ * Other HTML Elements
+ */
+
+.text {
+
+  /*
+   * Emphasis
+   *
+   * When us­ing a sans serif font, skip italic and use bold for em­pha­sis
+   * http://practicaltypography.com/bold-or-italic.html
+   */
+
+  em,
+  strong {
+    @include font-weight(medium);
+    font-style: normal;
+    color: $color-dark;
+  }
+
+
+  /*
+   * Block Elements
+   */
+
+  p, ul, ol, pre, blockquote {
+    margin: 20px 0;
+  }
+
+  p, li, pre, blockquote {
+    max-width: 40em;
+  }
+
+
+  /*
+   * Lists
+   */
+
+  ul {
+    list-style: disc;
+    margin-left: 1em;
+
+    @media (min-width: $bp-small) {
+      margin-left: 0;
+    }
+  }
+
+  ol {
+    margin-left: -1em;
+    ol {
+      list-style: decimal;
+      ol {
+        list-style: lower-roman;
+      }
+    }
+
+    @media (min-width: $bp-small) {
+      margin-left: -50px;
+      > li {
+        padding-left: 10px;
+      }
+      ol {
+        margin-left: -17px;
+      }
+    }
+  }
+
+  /*
+   * Images
+   */
+
+  img {
+    display: block;
+    box-shadow: 0 0 3px rgba(0,0,0,0.4);
+    margin: 40px 0;
+  }
+
+
+  /*
+   * Code
+   */
+
+  code {
+    color: $color-dark;
+  }
+
+  pre {
+    background: rgba(255,255,255,0.8);
+    color: $color-highlight;
+    padding: 20px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+    overflow: auto;
+    code {
+      color: inherit;
+    }
+  }
+
+  /*
+   * Blockquotes
+   */
+
+   blockquote {
+     p {
+       @extend .intro;
+     }
+
+     em {
+       @extend .sidenote;
+     }
+   }
+
+   hr + blockquote {
+     text-align: center;
+   }
+
+
+  /*
+   * Horizontal rules
+   */
+
+  hr {
+    margin: 40px 0;
+  }
+
+
+  /*
+   * Tables
+   */
+
+  table {
+    width: 100%;
+
+    @media (max:width $bp-small) {
+      thead {
+        display: none;
+      }
+      tbody, tr, th, td {
+        display: block;
+        padding: 0;
+        text-align: left;
+        white-space: normal;
+      }
+      td {
+        padding: 3px 10px;
+      }
+      td[scope='row'] {
+        background: $color-highlight;
+        color: $color-lightest;
+      }
+      td[data-title] {
+        text-align: right;
+      }
+      td[data-title]:before {
+        content: attr(data-title);
+        float: left;
+        color: $color-muted;
+        margin-right: 20px;
+      }
+      td:last-child {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  /*
+   * !! Fixes for funny markup in current posts
+   */
+
+  br + code {
+    @extend pre;
+    display: block;
+    margin: 20px 0;
+  }
+
+  img + br, code + br {
+    display: none;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    strong {
+      font-weight: inherit;
+    }
+  }
+}
+
+
+/*
+ * Text with no bullets
+ */
+.text--no-bullets {
+  ul {
+    list-style: none;
+    /* @media { */
+    /*   margin-left: 0; */
+    /* } */
+  }
+}

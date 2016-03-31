@@ -1,0 +1,194 @@
+$nav-width: 270px;
+
+$nav-bg-color:             rgb(64, 75, 76);
+$nav-primary-link-color:   rgb(255, 255, 255);
+$nav-secondary-link-color: rgb(126, 131, 131);
+$nav-nested-link-color:    rgb(191, 207, 205);
+$nav-icon-color:           rgb(101, 118, 118);
+$nav-icon-bg-colors: (
+  twitter:    rgb(79, 92, 93),
+  facebook:   rgb(62, 74, 74),
+  github:     rgb(57, 67, 67),
+  linkedin:   rgb(52, 62, 63),
+  gitter: rgb(42, 50, 51)
+);
+
+html {
+  background: $nav-bg-color; //* so it looks like off-canvas navigation bar stretches all the way to the bottom
+}
+
+/*
+ * Based on Foundation Off-Canvas
+ *
+ * http://foundation.zurb.com/docs/components/offcanvas.html
+ */
+.off-canvas-menu {
+  width: $nav-width;
+  top: 0;
+  bottom: 0;
+  right: -$nav-width; //* off-canvas to the right
+  position: absolute;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: $nav-bg-color;
+  z-index: 1001;
+  transition: transform 500ms ease 0s;
+}
+
+.off-canvas-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden
+}
+
+.off-canvas-inner-wrap {
+  position: relative;
+  width: 100%;
+  transition: transform 500ms ease;
+}
+
+.open-menu .off-canvas-inner-wrap {
+  transform: translate3d(-$nav-width, 0, 0);
+}
+
+.exit-off-canvas {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  color: $nav-secondary-link-color;
+}
+
+
+/* Fallback in case javascript is not enabled
+ * (won't get smooth sliding effect but
+ * at least it will be usable)
+ */
+.off-canvas-menu:target {
+  right: 0;
+  z-index: 100;
+  + .page {
+    position: relative;
+    left: -$nav-width;
+  }
+}
+
+.nav {
+  text-transform: uppercase;
+  margin: 5px 0 5px 70px;
+  a {
+    display: block;
+    position: relative;
+  }
+  .current {
+    color: $color-highlight;
+    &:before {
+      content: " ";
+      display: inline-block;
+      vertical-align: middle;
+      width: 15px;
+      height: 15px;
+      background: url(/img/icon-arrow.svg) no-repeat center center;
+      background-size: cover;
+      margin: -2px 15px 0 -30px;
+      margin-right: 15px;
+    }
+  }
+  .active {
+    color: $color-highlight;
+  }
+  .nav {
+    position: relative;
+    margin-left: -10000px;
+    padding: 18px 15px 18px 10035px;
+    background: $nav-bg-color;
+  }
+}
+
+.nav--primary {
+  font-size: 16px;
+  line-height: 32px;
+  margin-top: 45px;
+  a {
+    color: $nav-primary-link-color;
+  }
+  .no-touch & a:hover {
+    color: $color-highlight;
+  }
+  .nav a {
+    color: $nav-nested-link-color;
+    &.current {
+      color: $color-highlight;
+    }
+  }
+}
+
+.nav--secondary {
+  font-size: 13px;
+  line-height: 30px;
+  a {
+    color: $nav-secondary-link-color;
+  }
+}
+
+.nav--flush-left {
+  margin-left: 0;
+}
+
+.nav--inline {
+  li {
+    float: left;
+    margin-right: 6px;
+  }
+}
+
+.nav--social {
+  @extend .nav--inline;
+  margin-top: 25px;
+
+  .icon-link--square {
+    color: $nav-icon-color;
+    padding: 0 4px;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+  }
+
+  .icon-link--large {
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+  }
+
+  @each $name, $color in ($nav-icon-bg-colors) {
+    .icon-link--#{$name} {
+      background: $color;
+    }
+  }
+
+  .icon-link--inverse {
+    color: $color-lightest;
+    @each $name, $color in ($nav-icon-bg-colors) {
+      &.icon-link--#{$name} {
+        background: lighten($color, 50%);
+      }
+    }
+  }
+}
+
+.nav--centered {
+  display: inline-block;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.nav--inline.nav--wide {
+  li {
+    margin-right: 35px;
+  }
+}
+
+.site-nav.js-pinned {
+  overflow-y: auto;
+  max-height: 100%;
+  padding-bottom: 40px;
+}

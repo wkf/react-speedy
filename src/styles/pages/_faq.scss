@@ -1,0 +1,32 @@
+.dl-faq {
+  max-width: 845px + 40px;
+  margin: 70px auto 140px;
+  counter-reset: faq-counter;
+  padding-left: 40px; // leaves some room for numbers
+  
+  dt {
+    @extend .large;
+    @include font-weight(medium);
+    display: inline-block;
+    margin: 10px 0;
+    &:before {
+      display: inline-block;
+      content: counter(faq-counter, decimal)".";
+      counter-increment: faq-counter;
+      color: $color-highlight;
+      width: 30px;
+      text-align: right;
+      margin-left: -40px;
+      margin-right: 10px;
+    }
+  }
+  dd {
+    display: block;
+    margin: 0 0 20px;
+    max-width: 48em;
+  }
+  p {
+    max-width: none;
+    margin: 0 0 20px;
+  }
+}

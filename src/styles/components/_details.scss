@@ -1,0 +1,23 @@
+/*
+ * Details are collapsed by default
+ */
+.details-bd,
+.details-toggle--collapse {
+  display: none;
+}
+
+/*
+ * Details expanded
+ */
+.details:target,
+.details.expanded {
+  
+  .details-toggle--expand {
+    display: none;
+  }
+  
+  .details-bd,
+  .details-toggle--collapse {
+    display: block;
+  }
+}

@@ -1,0 +1,898 @@
+.show-med {
+  display: none;
+}
+
+@include breakpoint($bp-large) { //* Screen is smaller than comp – start making things responsive
+  body {
+    min-width: 0; // We're going responsive, baby
+  }
+
+  /*
+   * Media hero becomes fluid
+   */
+  .media--wide {
+    margin-right: 40px;
+    .media-img {
+      width: 52%;
+      margin-right: 60px;
+    }
+    /* Show the background of the container instead of the image so
+     * it scales well instead of getting squished, since the height
+     * needs to remain constant
+     */
+    .button-video {
+      width: 100%;
+      img {
+        visibility: hidden;
+      }
+    }
+  }
+
+  /* Reduce paddings around main and aside */
+  .l-wrap-inner--main-left {
+    padding: 0 ($aside-width + 50px) 0 80px;
+    .l-aside {
+      width: $aside-width + 40px;
+      padding-left: 40px;
+      margin-right: -($aside-width + 40px);
+    }
+    .l-main {
+      padding-right: 45px;
+    }
+    .post-title {
+      font-size: 50px; /* Kilo */
+      line-height: 65px;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .blog-aside-title {
+      font-size: 42px;
+      line-height: 45px;
+      margin-bottom: 110px;
+    }
+  }
+}
+
+@include breakpoint($bp-med-large) { //* Tweak point to leave more room for hero and main
+
+  /* Reduce padding around the header and hero to
+   * leave more space for the content.
+   */
+  .content--wide {
+    padding: 0 25px;
+  }
+
+  /* Adjust media hero margins to align with header */
+  .media--wide {
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+
+  /* Large callouts shouldn't bleed */
+  .media--wide .callout {
+    margin: 0;
+  }
+  .callout--large {
+    margin-left: 0;
+  }
+
+
+}
+
+@include breakpoint($bp-med-large-2) { //* Tweak point to fix broken hero
+
+  /* Reduce margins between video and blurb. Hide callout */
+  .media--wide {
+    margin-left: 0;
+    .media-img {
+      width: 50%;
+      margin-right: 5%;
+    }
+    .callout {
+      visibility: hidden;
+    }
+  }
+
+  /* Plans and pricing table */
+  .plan--price.th--highlight {
+    padding: 15px 0 10px;
+  }
+  .plan--amount {
+    font-size: 45px;
+  }
+  .plan--currency {
+    font-size: 16px;
+    line-height: 1.1;
+  }
+  .plan--note, .plan--feature, .plan--enterprise-feature {
+    font-size: 11px;
+  }
+  .plan--icon-hint {
+    display: none;
+  }
+  .td.plan--note {
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: $bp-med + 1) and (max-width: $bp-med-large-2) {
+  /* Adjust blog font sizes so headlines don't wrap too much */
+  .post-title {
+    font-size: 37px;
+    line-height: 50px;
+    margin-bottom: 30px;
+  }
+  .post-meta {
+    font-size: 16px;
+  }
+  .blog-aside-title {
+    font-size: 33px;
+    line-height: 50px;
+    margin: 140px 0 95px;
+  }
+}
+
+
+@include breakpoint($bp-med) { //* Major breakpoint
+
+  /* Hide optional elements */
+  .optional {
+    display: none;
+  }
+
+  /* Show alternate elements for medium size */
+  .show-med {
+    display: block;
+  }
+
+  .text-center-med {
+    text-align: center;
+  }
+
+
+  /*
+   * BLURBS in columns get fluid width and some padding instead for separation
+   */
+  .l-third .blurb {
+    width: auto;
+    padding: 0 15px;
+    position: relative;
+
+    .w-0 {
+      width: auto;
+    }
+  }
+
+  .l-third:first-child .blurb {
+    left: -15px;
+  }
+  .l-third:last-child .blurb {
+    right: -15px;
+  }
+
+  .l-half-med {
+    width: 50%;
+  }
+  .l-half-med .blurb {
+    padding-right: 25px;
+  }
+  .l-half-med:last-child .blurb {
+    right: -25px;
+  }
+
+  .l-full-med, .l-full-med.center {
+    left: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    right: 0;
+    width: 100%;
+  }
+
+
+  /*
+   * HERO goes in 1 column. Video appears at the botton
+   */
+
+  .media--wide {
+    margin-right: 0;
+    .media-img {
+      display: none;
+    }
+  }
+
+  .button-video {  /* video buttons appear full width */
+    margin-left: 10px;
+    margin-right: 10px;
+    img {
+      width: 100%;
+    }
+    .callout {
+      display: none;
+    }
+  }
+
+  .bg-light { /* Better pattern for the hero */
+    background-position: center top; /* this shows a sphere behind the "...deploys..." – kindda fitting */
+  }
+
+  .button-video.show-med + .pullquote {  /* add some air to pullquotes after video */
+    margin-bottom: 50px;
+  }
+
+
+  /* TABLES: reduce font size, paddings and margins so lines don't wrap */
+  .table {
+    font-size: 14px;
+  }
+  .th {
+    font-size: 18px;
+  }
+  .th, .td {
+    padding: 10px 0px;
+    margin: 4px 2px;
+  }
+  .th--highlight {
+    padding: 8px 0 4px;
+  }
+  .plan--enterprise-feature {
+    padding: 10px 5px;
+  }
+
+  /*
+   * Main/aside layout goes in one column
+   */
+   .l-wrap-inner {
+    display: block;
+    .l-aside--left:after {
+      display: none;
+    }
+  }
+
+  .l-wrap-inner {
+    max-width: 745px + 2*40px;
+    padding: 0 40px;
+    margin: 0 auto;
+  }
+  .l-main,
+  .l-aside {
+    position: relative;
+    float: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .l-main {
+    border-bottom: 3px solid $color-highlight;
+  }
+  .l-wrap-inner--main-left {
+    display: block;
+    .l-main {
+     padding: 0;
+    }
+    .blog-aside-title {
+      text-align: left;
+      margin-bottom: 40px;
+    }
+    .blurb-title a {
+      color: $color-highlight;
+    }
+    .l-aside {
+      padding-left: 0;
+      padding-right: 40px;
+    }
+    .l-aside--right {
+      padding-right: 0;
+      margin-right: 0;
+      width: auto;
+    }
+    .l-aside--right:after {
+      display: none;
+    }
+  }
+  .l-wrap:before,
+  .l-wrap:after,
+  .l-aside {
+    background: transparent;
+  }
+  .l-aside.inverse {
+    color: inherit;
+    .loud {
+      color:inherit;
+    }
+    .light {
+      color: $color-muted;
+    }
+    .no-touch & a:hover {
+      color: $color-highlight;
+    }
+  }
+  .l-aside .blurb {
+    width: auto;
+    max-width: 50%;
+    padding: 0 30px;
+    margin: 0 0 30px;
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+    margin-right: -2px;
+    .media .blurb-meta {
+      margin-top: 0;
+    }
+  }
+  .l-aside .blurb:nth-child(n+1) {
+    padding-left: 0;
+  }
+  .l-aside .blurb:nth-child(2n+1) {
+    padding-right: 0;
+  }
+
+  .blog-aside-title {
+    margin: 70px 0 40px;
+    text-align: center;
+  }
+
+  /* When we have a left menu, we make it a mobile top accordeon */
+  .l-mobile-menu {
+    .l-wrap-inner {
+      margin: 0;
+      padding: 0;
+      max-width: none;
+    }
+    .nav--primary {
+      margin: 0;
+      padding: 10px 0;
+      text-align: center;
+    }
+    .l-main {
+      margin: 0 auto;
+      padding: 0 40px 80px;
+      max-width: 745px + 2*40px;
+    }
+  }
+  .nav--inline.nav--wide {
+    li {
+      margin-right: 10px;
+    }
+  }
+}
+
+/* If the device height is big (eg. ipad portrait), the hero will look really bare.
+ * Increase the font size.
+ */
+@media screen and (min-width: $bp-small + 1px) and (max-width: $bp-med) and (min-height: 800px) {
+
+  .media--wide {
+    .blurb {
+      width: 30em;
+      .huge {
+        font-size: 175px;
+        letter-spacing: -0.02em;
+      }
+      .alpha {
+        font-size: 50px;
+        line-height: 55px;
+      }
+      .small-2 {
+        font-size: 16px;
+        text-align: center;
+        margin: 30px 0;
+      }
+      .button {
+        font-size: 32px;
+        line-height: 100px;
+        height: 100px;
+      }
+      .button-icon {
+        transform: scale(1.2);
+        margin: 16px 0 0 16px;
+      }
+    }
+  }
+
+}
+
+@include breakpoint($bp-med-small) { //* Tweak point to leave more room for content
+  /* Reduce content padding to leave more room for content */
+  .content {
+    padding: 0 20px;
+  }
+
+  /* Reduce bleed so it doesn't touch edge of screen */
+  .l-container {
+    margin-left: 0;
+  }
+  .l-half-med:last-child .blurb {
+    right: -15px;
+  }
+  .media--bleed {
+    .media-img {
+      margin-left: -4px;
+    }
+  }
+}
+
+
+@include breakpoint($bp-small) { //* Major breakpoint. Stack all the things (almost)
+  /*
+   * Reduce content width to readable line length
+   */
+  .content {
+    max-width: 28em;
+    padding: 0 20px;
+  }
+  .site-header, .site-footer {
+    .content {
+      max-width: 40em;
+    }
+  }
+
+  /*
+   * Stack address in footer
+   */
+  .site-footer {
+    .vcard {
+      margin: 10px;
+      br {
+        display: block;
+      }
+      .address:before {
+        display: none;
+      }
+    }
+  }
+
+  /*
+   * Reduce header
+   */
+  .site-header .brand-logo {
+    transform: scale(0.7);
+    position: relative;
+    top: 3px;
+    left: -30px;
+  }
+  .site-header .brand {
+    margin: 0;
+  }
+  .top-nav {
+    margin: 15px 0;
+  }
+
+
+  /*
+   * Stack layouts
+   */
+  .l-container,
+  .l-container .l-third,
+  .l-container .l-fourth,
+  .l-container .l-half,
+  .l-2-col .l-col,
+  .l-3-col .l-col {
+    float:none;
+    width: auto;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    .blurb {
+      position: static;
+      margin: 0 0 30px;
+    }
+  }
+  .l-2-col-auto {
+    columns: 1;
+    column-gap: 0;
+  }
+
+  /*
+   * Stack inline blocks
+   */
+  .inline-block:not(.optional) {
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /*
+   * Fix stacked blurbs
+   */
+  .blurb-meta:not(.right) {
+    margin-top: 0;
+  }
+  .blurb .cta {
+    margin-bottom: 80px;
+  }
+  .blurb-hd .media--bleed {
+    margin-bottom: 10px;
+  }
+
+  /*
+   * Fix links
+   */
+  .button-label {
+    padding-left: 0;
+  }
+  .button--small {
+    min-width: 0px;
+    border-radius: 40px;
+    .button-label {
+      display: none;
+    }
+  }
+  .button--inline {
+    margin-right: 20px;
+  }
+  .button-video {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .social-icon--round {
+    margin: 0 10px;
+  }
+
+  /*
+   * Stack Forms
+   */
+  .form--fancy  {
+    padding: 6px;
+    border-radius: 10px;
+    margin: 40px 0 20px;
+    .form-group {
+      float: none;
+      width: 100%;
+      padding: 3px;
+    }
+    .form-button {
+      font-size: 16px;
+      margin-top: 3px;
+      position: static;
+      width: 100%;
+      border-radius: 0 0 5px 5px;
+    }
+  }
+  ::-webkit-input-placeholder {
+    font-size: 16px;
+  }
+  ::-moz-placeholder {
+    font-size: 16px;
+  }
+  :-ms-input-placeholder {
+    font-size: 16px;
+  }
+
+  /*
+   * Adjust table margins to align with left and right margins
+   */
+  .table {
+    margin-left: -4px;
+    margin-right: -4px;
+  }
+
+  /*
+   * Reduce spacing between sections
+   */
+  .cf:after {
+    display:block; // collapse margin bottom
+  }
+  .site-footer .content:after { // don't collapse margin botton in site footer
+    display: table;
+  }
+  .mt-110, .mt-115, .mt-120, .mt-90 {
+    margin-top: 70px; // this is a hack – need to normalize these margins
+  }
+
+  /*
+   * Reduce font sizes
+   */
+  .huge {
+    font-size: 115px;
+    line-height: 1;
+  }
+  .tera {
+    font-size: 55px;
+    line-height: 1;
+  }
+  .mega {
+    font-size: 50px; //48px;
+    line-height: 65px;
+  }
+  .kilo {
+     font-size: 37px; //36px;
+     line-height: 45px;
+  }
+  .alpha, h1 {
+     font-size: 33px; //32px
+     line-height: 40px;
+  }
+  .beta, h2 {
+     font-size: 28px;
+     line-height: 35px;
+  }
+  .gamma, h3 {
+     font-size: 25px; //24px;
+     line-height: 30px;
+  }
+  .delta, h4,
+  .epsilon, h5 {
+     font-size: 22px;
+     line-height: 30px;
+  }
+  .zeta, h6 {
+     font-size: 18px;
+     line-height: 25px;
+  }
+  .small {
+    font-size: 15px;
+  }
+  .small-2 {
+    font-size: 14px;
+  }
+  .table {
+    font-size: 16px;
+  }
+  .th {
+    font-size: 20px;
+  }
+
+  /* Adjust blurb in hero to compensate for smaller font sizes */
+  .media--wide .blurb {
+    width: auto;
+    max-width: 330px;
+  }
+
+  /*
+   * Bold paragraphs look too bold
+   */
+  p.bold {
+    @include font-weight(medium);
+  }
+
+  /* Extra small text the blurb body gets too
+   * hard to read and looks uncompensated with
+   * normal text (see About page, Mat & Chris descriptions)
+   * Make it look like standard text
+   */
+  .blurb-bd .x-small {
+    font-size: 16px;
+    line-height: 25px;
+  }
+
+  /*
+   * Blurbs aside get stacked
+   */
+  .l-aside .blurb:nth-child(n) {
+    float: none;
+    max-width: none;
+    padding: 0;
+  }
+
+  /*
+   * Reduce l-wrap-inner width to adapt to stacked blurbs
+   */
+  .l-wrap-inner {
+    max-width: 30em;
+    padding: 0 20px;
+  }
+
+  /*
+   * Reduce post title font size
+   */
+  .post-title {
+    font-size: 37px;
+    line-height: 50px;
+    margin: 70px 0 20px;
+  }
+  .post-meta {
+    font-size: 14px;
+  }
+  .blog-aside-title {
+    font-size: 33px;
+    line-height: 35px;
+  }
+
+  /*
+   * Legalese. Get rid of bullets, numbered lists and indentation
+   */
+  .legalese {
+    padding: 0;
+    h1 {
+      padding-top: 0;
+      border: none;
+    }
+    ol h2:before {
+      display: none;
+    }
+    ul, ol, ol ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      li {
+        padding: 0;
+      }
+    }
+  }
+
+  .inline-block .icon-link--round {
+    margin-right: 10px;
+  }
+  .nav--inline.nav--wide {
+    li:last-child {
+      margin-right: 0;
+    }
+    .icon-link--large {
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      svg {
+        width: 35px;
+        height: 35px;
+      }
+    }
+  }
+
+  .mobile-stack-images img {
+    display: block;
+    margin: 30px auto;
+  }
+
+  /* Responsive pricing table */
+  .pricing-table {
+    display: none;
+  }
+  .mobile-pricing-table {
+    display: block;
+    .td {
+      padding: 10px 10px;
+      height: 45px;
+    }
+    .l-third:last-child .table {
+      margin-bottom: 0;
+    }
+    .plan--amount {
+      float: left;
+      width: 50%;
+    }
+    .plan--currency {
+      float: left;
+      width: 50%;
+      padding-left: 7px;
+    }
+  }
+  .button--signup {
+    margin: 0 auto;
+    width: 274px;
+  }
+  .signup--extra-info {
+    display: none;
+  }
+  .plan--feature-title {
+    font-size: 16px;
+  }
+  .plan--feature-box {
+    display: none;
+  }
+  .plan--enterprise-feature {
+    display: block;
+    padding: 10px;
+  }
+  table, .mobile-pricing-table {
+    .plan--feature, .td {
+      position: relative;
+    }
+    .help-box {
+      position: absolute;
+      top: 60px;
+      left: 0px;
+      width: 100%;
+      font-size: 11px;
+      line-height: 1.45;
+      padding: 10px;
+    }
+  }
+  .mobile-pricing-table .help-box {
+    top: 50px;
+  }
+
+}
+
+@include breakpoint($bp-small-2) {
+  /*
+   * Fix footer aligning address under logo
+   */
+  .site-footer {
+    .left, .right {
+      float: none;
+    }
+    .brand-logo {
+      margin-left: -10px;
+    }
+    .vcard {
+      margin: -35px 0 0 95px;
+      .org {
+        display: none;
+      }
+    }
+  }
+}
+
+@include breakpoint($bp-small-3) {
+  /*
+   * More space for content
+   */
+  .content {
+    padding: 0 15px;
+  }
+  .l-third, .l-half {
+    .blurb {
+      padding: 0;
+    }
+  }
+
+
+  /*
+   * Links can be closer together
+   */
+  .social-icon--round {
+    margin: 0 5px;
+  }
+
+  /*
+   * Reduce big hero text and button
+   */
+  .media--wide {
+    margin-top: 50px;
+    .blurb {
+      max-width: 270px;
+    }
+    .huge {
+      font-size: 98px;
+      line-height: 100px;
+      margin: 0 0 20px;
+    }
+    .alpha {
+      margin: 5px 0;
+      font-size: 28px;
+      line-height: 35px;
+    }
+    .small-2 {
+      font-size: 14px;;
+      text-align: center;
+      margin-top: -5px;
+    }
+  }
+
+  /*
+   * Make large buttons smaller
+   */
+  .button--large {
+    font-size: 21px;
+    height: 60px;
+    line-height: 60px;
+    .button-icon {
+      transform: scale(0.7);
+      margin: -4px;
+    }
+  }
+
+  .post-title {
+    line-height: 45px;
+    margin-bottom: 30px;
+  }
+}
+
+// for the contact page blocks
+section.contact-blocks li {
+  @include breakpoint($bp-med) {
+    width: 48%;
+  }
+
+  @include breakpoint($bp-small) {
+    width: 100%;
+    float: none;
+
+    a {
+      margin: 15px 0;
+    }
+  }
+}

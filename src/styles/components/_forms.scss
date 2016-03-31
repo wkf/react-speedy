@@ -1,0 +1,69 @@
+/* Forms
+------------------------------*/
+.form--fancy {
+  position: relative;
+  overflow: hidden;
+  padding: 6px 180px 6px 6px; // 180 => button-width + right padding
+  box-shadow: inset 1px 1px 5px rgba(0,0,0,0.3);
+  border-radius: 10px 55px 55px 10px; // 55 => form height
+  background: $color-light;
+
+  .form-group {
+    float: left;
+    margin: 0;
+    width: 100%;
+    padding-right: 6px;
+  }
+
+  input,
+  button {
+    display: block;
+    border: none;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+  }
+
+  input {
+    width: 100%;
+    border-radius: 4px;
+    background-color: $color-lighter;
+  }
+
+  button {
+    width: 174px;
+    position: absolute;
+    right: 6px;
+    border-radius: 0 42px 42px 0px;
+    background: $color-highlight;
+    color: $color-lightest;
+    font-size: 13.62px;
+    line-height: 37px; /* magic number to get the button text to align with the input placeholder */
+  }
+}
+
+.inverse .form--fancy {
+  background: transparentize($color-darkest, 0.95);
+  input {
+    background: transparentize($color-dark, 0.3);
+  }
+  ::-webkit-input-placeholder {
+    color: $color-muted;
+  }
+}
+
+/* To style placeholders
+ * http://css-tricks.com/snippets/css/style-placeholder-text/
+ */
+::-webkit-input-placeholder {
+  color: rgba(126,131,131, 0.5);
+  font-size: 13.62px;
+}
+::-moz-placeholder {
+  color: rgba(126,131,131, 0.5);
+  font-size: 13.62px;
+}
+:-ms-input-placeholder {
+  color: rgba(126,131,131, 0.5);
+  font-size: 13.62px;
+}

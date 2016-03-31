@@ -7,12 +7,12 @@ const SEED = {
   url: "",
   questions: [
     {
-      title: 'Is the site static?',
+      title: 'Is your site static?',
       options: ['Yes', 'No', 'Not Sure'],
       selected: null
     },
     {
-      title: 'Is the site mode with any of these tools?',
+      title: 'Is your site mode with any of these tools?',
       options: ['Wordpress', 'Drupal', 'Joomla', 'Xpress', 'Rails', 'Other', 'Not Sure'],
       selected: null
     }

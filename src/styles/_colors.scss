@@ -1,0 +1,185 @@
+//== Colors
+//
+//## Grays, whites and highlight colors
+
+  //** Grays
+  $color-muted: rgb(126,131,131);
+  $color-dark: rgb(89,98,98);
+  $color-darker: rgb(51,61,61);
+  $color-darkest: rgb(49,61,62);
+
+  //** Whites
+  $color-light: #F4F6F6;
+  $color-lighter: #F6FAFA;
+  $color-lightest: #FFF;
+
+  // ** Tints-of-greens
+  $color-tint1: rgb(193,216,213);
+  $color-tint2: rgb(154,207,201);
+  $color-tint3: rgb(117,196,186);
+
+  //** Blue-greens
+  $color-highlight: rgb(0,199,183);
+  $color-highlight-lighter: rgb(202,224,222);
+  $color-highlight-lightest: rgb(230,239,238);
+
+
+  //** Social networks (http://brandcolors.net/)
+  $colors-social: (
+    twitter:    #55acee,
+    facebook:   #3b5998,
+    github:     #4183c4,
+    linkedin:   #0976b4,
+    gitter:     #dd4b39
+  );
+
+/*
+ * Defaults
+ */
+body {
+  background-color: $color-light;
+  color: $color-dark;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $color-dark;
+}
+
+a {
+  color: $color-highlight;
+}
+
+svg {
+  fill: currentColor;
+}
+
+.highlight {
+  color: $color-highlight;
+  fill: $color-highlight;
+}
+.lightest {
+  color: $color-lightest;
+  fill: $color-lightest;
+}
+.muted {
+  color: $color-muted;
+}
+.dark {
+  color: $color-dark;
+}
+.loud {
+  color: $color-darker;
+  .no-touch a:hover & {
+    color: $color-highlight;
+  }
+}
+.overloud {
+  color: $color-darkest;
+}
+.light {
+  color: $color-light;
+}
+
+/* Dark background */
+.inverse {
+  background-color: $color-darkest;
+  color: $color-light;
+  font-weight: 100;
+
+  h1, h2, h3, h4, h5, h6 {
+    color: inherit;
+  }
+
+  .highlight {
+    color: $color-highlight;
+  }
+  .loud {
+    color: $color-lightest;
+  }
+  .muted {
+    color: $color-muted;
+  }
+  .light {
+    color: rgba(255,255,255,0.7);
+  }
+}
+
+/* Icons */
+.icon {
+  color: $color-lightest;
+}
+.inverse .icon {
+  color: $color-darkest;
+}
+svg.muted {
+  color: rgb(195,195,195); /* Same color as icon-select-drop.png */
+  .inverse & {
+    color: $color-muted;
+  }
+}
+
+
+
+/* Backgrounds */
+.bg-white {
+  background-color: $color-lightest;
+}
+.bg-light {
+  background: $color-light url(/img/bg-light-1.svg) no-repeat -345px -250px;
+}
+.bg-light-muted {
+  background: $color-light url(/img/bg-light-2.svg) no-repeat 430px -190px;
+}
+.bg-light-muted-2 {
+  background: $color-light url(/img/bg-light-3.svg) no-repeat -25px -90px;
+}
+.bg-highlight {
+  background-color: $color-highlight;
+}
+
+.bg-dark-cover {
+  background: $color-darkest url(/img/bg-dark-1.svg) no-repeat;
+  background-size: cover;
+}
+.bg-dark-muted {
+  background: $color-darkest url(/img/bg-dark-2.svg) no-repeat;
+}
+.bg-dark-muted-cover {
+  background: $color-darkest url(/img/bg-dark-2.svg) no-repeat;
+  background-size: cover;
+}
+.bg-tint1 {
+  background: $color-tint1;
+}
+.bg-tint2 {
+  background: $color-tint2;
+}
+.bg-tint3 {
+  background: $color-tint3;
+}
+
+
+/* Main and sidebar */
+.l-aside--right:after, .l-aside--left:before {
+  background: inherit;
+  color: inherit;
+}
+
+/* Filters */
+.grayscale {
+  filter: grayscale(100%);
+  transition: ease .3s;
+  .no-touch a:hover & {
+    filter: grayscale(0%);
+  }
+}
+
+.colorize {
+  filter: sepia() hue-rotate(130deg) saturate(70%) brightness(98%);
+  opacity: 0.9;
+  transition: ease .3s;
+  .no-touch a:hover & {
+    filter: sepia(0%);
+    opacity: 1;
+  }
+}

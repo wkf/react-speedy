@@ -1,0 +1,53 @@
+/* Tables
+------------------------------*/
+table {
+  border-collapse: separate;
+  border-spacing: 6px;
+  margin-left: -6px;
+}
+
+table.full-width {
+  width: 100%;
+  margin-left: 0;
+}
+
+.table {
+  margin: 15px 0px 45px;
+}
+
+.hidden-cell {
+  visibility: hidden;
+}
+
+th, .th,
+td, .td {
+  margin: 6px 3px;
+  padding: 10px;
+}
+
+th, .th {
+  background-color: $color-highlight-lighter;
+  color: $color-darker;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+td, .td {
+  background-color: $color-highlight-lightest;
+}
+
+tbody, .tbody {
+  margin: 0;
+}
+
+thead th, .th--highlight {
+  background-color: $color-highlight;
+  color: $color-lightest;
+  padding-bottom: 5px;
+}
+
+.th--medium {
+  font-size: 16px;
+  font-weight: 300;
+  color: $color-dark;
+}

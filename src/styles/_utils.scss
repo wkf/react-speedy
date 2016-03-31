@@ -1,0 +1,68 @@
+//*
+//* OOCSS different clearfix options
+//*
+@import "lib/clearfix";
+
+
+//*---------------------------------------------------------
+//*  
+//*  Wraps code in a media query for max-width
+//*   
+//*  # Usage:
+//*          $on-palm: 600px;
+//*          $spacing-unit: 20px;
+//*
+//*          @include breakpoint($on-palm) {
+//*              .wrapper {
+//*                  padding-right: $spacing-unit / 2;
+//*                  padding-left: $spacing-unit / 2;
+//*              }
+//*          }
+//*
+//*  # Output:
+//*          @media screen and (max-width: 600px) {
+//*            .wrapper {
+//*                padding-right: 10px;
+//*                padding-left: 10px;
+//*            }
+//*          }
+//*---------------------------------------------------------
+@mixin breakpoint($bp-max) {
+  @media screen and (max-width: $bp-max) {
+    @content;
+  }
+}
+
+
+//*---------------------------------------------------------
+//*  
+//*  Wraps code in a media query for high-resolution devices
+//*
+//*  Usage: same as breakpoint mixin above
+//*
+//*---------------------------------------------------------
+@mixin retina {
+  @media print,
+         (-o-min-device-pixel-ratio: 5/4),
+         (-webkit-min-device-pixel-ratio: 1.25),
+         (min-resolution: 120dpi) {
+    @content;
+  }
+}
+
+
+//*---------------------------------------------------------
+//*
+//* Utility placeholders
+//*
+//*---------------------------------------------------------
+
+%ir, %hide-text {
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+%cf {
+  @include clearfix-me(micro);
+}
