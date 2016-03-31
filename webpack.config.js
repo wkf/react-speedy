@@ -12,7 +12,7 @@ const common = {
   entry: PATHS.app,
 
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx', '.scss']
   },
 
   output: {
@@ -22,10 +22,17 @@ const common = {
 
   module: {
     loaders: [
-      { test: /\.jsx?$/,
+      {
+        test: /\.jsx?$/,
         loader: 'babel',
         exclude: PATHS.exclude
       }
+      // ,
+      // {
+      //   test: /\.scss$/,
+      //   loaders: ['style', 'css', 'sass'],
+      //   exclude: PATHS.exclude
+      // }
     ]
   },
 
@@ -45,16 +52,23 @@ const configs = {
       inline: true,
       progress: true,
       stats: 'errors-only',
-      host: process.env.HOST || 'localhost',
+      host: process.env.HOST || '0.0.0.0',
       port: process.env.PORT || '8080'
     },
 
     module: {
       loaders: [
-        { test: /\.jsx?$/,
+        {
+          test: /\.jsx?$/,
           loaders: ['react-hot', 'babel'],
           exclude: PATHS.exclude
         }
+        // ,
+        // {
+        //   test: /\.scss$/,
+        //   loaders: ['style', 'css', 'sass'],
+        //   exclude: PATHS.exclude
+        // }
       ]
     },
 

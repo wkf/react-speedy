@@ -1,0 +1,66 @@
+// **************************
+// *
+// * FOR DEVELOPMENT ONLY
+// *
+// **************************
+
+
+
+body {
+  //width: 1280px;
+  margin: 0 auto;
+}
+
+body:before {
+  content: "comp size";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  padding: 5px;
+  font: bold normal 12px/1 monospace;
+  background: yellow;
+}
+
+@include breakpoint($bp-large) {
+  body:before {
+    content: "bp-large #{$bp-large}";
+  }
+}
+@include breakpoint($bp-med-large) {
+  body:before {
+    content: "bp-med-large #{$bp-med-large}";
+  }
+}
+@include breakpoint($bp-med-large-2) {
+  body:before {
+    content: "bp-med-large-2 #{$bp-med-large-2}";
+  }
+}
+@include breakpoint($bp-med) {
+  body:before {
+    content: "bp-med #{$bp-med}";
+  }
+}
+@include breakpoint($bp-med-small) {
+  body:before {
+    content: "bp-med-small #{$bp-med-small}";
+  }
+}
+@include breakpoint($bp-small) {
+  body:before {
+    content: "bp-small #{$bp-small}";
+  }
+}
+@include breakpoint($bp-small-2) {
+  body:before {
+    content: "bp-small-2 #{$bp-small-2}";
+  }
+}
+@include breakpoint($bp-small-3) {
+  body:before {
+    content: "bp-small-3 #{$bp-small-3}";
+  }
+}
+

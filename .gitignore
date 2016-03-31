@@ -33,4 +33,4 @@ node_modules
 .node_repl_history
 
 # Compiled public files
-public
+public/bundle.js

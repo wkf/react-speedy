@@ -1,0 +1,57 @@
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 999;
+  margin: 2px 0 0;
+  padding: 5px 0;
+  border-radius: 3px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.175);
+  background-color: $color-light;
+
+  .inverse & {
+    background-color: $color-darkest;
+  }
+
+  a {
+    display: block;
+    white-space: nowrap;
+    padding: 3px 20px;
+    color: $color-muted;
+  }
+
+  .selected a, a.selected,
+  .no-touch & a:hover {
+    color: $color-highlight;
+  }
+}
+
+.dropdown-toggle {
+  position: relative;
+  margin: 0 20px 0 20px;
+
+  &:after {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 5px;
+    background-repeat: no-repeat;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAFCAYAAAB8ZH1oAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjFFMjRCQ0QwNjkwNTExRTQ4OTBFRTQzNUFCNkY3RUQ2IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjFFMjRCQ0QxNjkwNTExRTQ4OTBFRTQzNUFCNkY3RUQ2Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MUUyNEJDQ0U2OTA1MTFFNDg5MEVFNDM1QUI2RjdFRDYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MUUyNEJDQ0Y2OTA1MTFFNDg5MEVFNDM1QUI2RjdFRDYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5hKfWKAAAAOklEQVR42mI8fPhwAwMDQz0DftDIBCRAChvxKQKpYYJycCluhMoxMCEJoiuGKwIBFjQTGnCwGQACDABiDArbjzUI1AAAAABJRU5ErkJggg==);
+    position: absolute;
+    top: 5px;
+    right: -17px;
+  }
+  
+  &[aria-expanded="false"] + .dropdown-menu {
+    display: none;
+  }
+
+  &[aria-expanded="true"]  + .dropdown-menu,
+  &[aria-expanded] + .dropdown-menu:target {
+    display: block;
+  }
+}

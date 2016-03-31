@@ -1,0 +1,220 @@
+//*---------------------------------------------------------
+//*
+//* Typography loosely based on classic typographic scale,
+//* tweaked to try to match font sizes in comp
+//*
+//* http://spencermortensen.com/articles/typographic-scale/
+//*
+//*---------------------------------------------------------
+
+$font-weights: ( //* keep getting them wrong, so mapping them to their names to see if it helps
+  thin: 100,
+  light: 300,
+  normal: 400,
+  medium: 500,
+  bold: 700
+);
+
+@mixin line-height($px) {
+  line-height: $px;
+  line-height: px2rem($px);
+}
+
+@mixin font-weight($name) {
+  font-weight: if(map-has-key($font-weights, $name), map-get($font-weights, $name), $name);
+}
+
+
+/*---------------------------------------------
+ *
+ * TYPOGRAPHY
+ *
+ *--------------------------------------------*/
+
+html {
+  font: 300 normal 16px/25px Roboto, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+/*
+ * Basic spacing
+ */
+h1, h2, h3, h4, h5, p, ul, ol, dl, blockquote {
+  margin: 20px 0;
+}
+p {
+  max-width: 30em; // readable length
+  margin: 20px auto;
+}
+.p--wide {
+  max-width: 55em;
+}
+.p--full-w {
+  max-width: none;
+}
+
+
+/*
+ * Headings and paragraphs
+ */
+.huge {
+   font-size: 125px; /* Not in scale */
+   @include font-weight(bold);
+   letter-spacing: -0.01em;
+   line-height: 1;
+   margin: 40px 0 45px;
+}
+
+.tera {
+   font-size: 63px;
+   @include font-weight(thin);
+   letter-spacing: -0.02em;
+   line-height: 1;
+}
+
+.mega {
+   font-size: 55px;
+   @include font-weight(thin);
+   letter-spacing: -0.02em;
+   line-height: 70px;
+}
+
+.kilo {
+   font-size: 50px; //48px;
+   @include font-weight(thin);
+   letter-spacing: -0.02em;
+   line-height: 60px;
+}
+
+.alpha, h1 {
+   font-size: 37px; //36px;
+   @include font-weight(thin);
+   letter-spacing: -0.02em;
+   line-height: 45px;
+   margin: 25px 0;
+}
+
+.beta, h2 {
+   font-size: 33px; //32px
+   @include font-weight(thin);
+   letter-spacing: -0.02em;
+   line-height: 40px;
+   margin: 25px 0;
+}
+
+.gamma, h3 {
+   font-size: 28px;
+   @include font-weight(light);
+   letter-spacing: normal;
+   line-height: 35px;
+}
+
+.delta, h4 {
+   font-size: 25px; //24px;
+   @include font-weight(light);
+   letter-spacing: normal;
+   line-height: 30px;
+}
+
+.epsilon, h5 {
+   font-size: 22px; //21px;
+   @include font-weight(light);
+   letter-spacing: normal;
+   line-height: 30px;
+}
+
+.zeta, h6 {
+   font-size: 18px;
+   @include font-weight(light);
+   letter-spacing: normal;
+   line-height: 25px;
+}
+
+.large {
+  font-size: 20px;
+  @include font-weight(light);
+  letter-spacing: normal;
+  line-height: 25px;
+}
+
+.medium {
+   font-size: 16px;
+   @include font-weight(light);
+   letter-spacing: normal;
+   line-height: 25px;
+ }
+
+.small {
+   font-size: 14px;
+   @include font-weight(light);
+   letter-spacing: 0.02em;
+   line-height: 20px;
+}
+
+.small-2 {
+   font-size: 15px; /* Not in scale. one-off size to get small text in hero to justify */
+   @include font-weight(light);
+   letter-spacing: normal;
+   line-height: 20px;
+}
+
+.x-small {
+   font-size: 13px;
+   @include font-weight(light);
+   letter-spacing: 0.03em;
+   line-height: 20px;
+}
+
+.xx-small {
+   font-size: 11px;
+   @include font-weight(light);
+   letter-spacing: 0.03em;
+   line-height: 20px;
+}
+
+
+/*
+ * Weights
+ */
+.thin {
+  @include font-weight(thin);
+}
+
+.normal {
+  @include font-weight(normal);
+  letter-spacing: normal;
+}
+
+strong,
+b,
+.semibold {
+  @include font-weight(medium);
+  letter-spacing: normal;
+}
+
+.bold {
+  @include font-weight(bold);
+  letter-spacing: 0.01em;
+}
+
+
+/*
+ * Line heights
+ */
+.loose {
+  line-height: 1.8;
+}
+
+.underline {
+  border-bottom: 1px solid;
+}
+
+
+/*
+ * No italics
+ */
+em, i, cite {
+  font-style: normal;
+}
+
+

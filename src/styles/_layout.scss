@@ -1,0 +1,410 @@
+$page-width: 1280px;
+$content-width: 976px;
+$base-spacing: 20px;
+
+$aside-width: 280px;
+$aside-width-wide: 439px;
+
+$logo-width: 180px;
+
+/*
+ * Global layouts and
+ * utilities to control flow
+ *
+------------------------------*/
+
+/*
+ * HTML Elements
+ */
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  min-width: $page-width;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  -ms-interpolation-mode: bicubic;
+}
+
+
+/*
+ * Icons
+ */
+svg.append {
+  position: relative;
+  top: -1px;
+  margin-left: 0.385em;
+}
+
+svg.prepend {
+  position: relative;
+  top: -1px;
+  margin-right: 0.75em;
+}
+
+
+/*
+ * Content containers
+ */
+.content {
+  @extend %cf;
+  position: relative;
+  max-width: $content-width + 4*$base-spacing;
+  padding: 0 2*$base-spacing;
+  margin: 0 auto;
+}
+.content--wide {
+  max-width: $page-width;
+  padding: 0 2.5*$base-spacing 0 4*$base-spacing;
+}
+.content--narrow {
+  max-width: $content-width;
+}
+
+
+/*
+ * Utility classes for layout flow
+ */
+
+.abs {
+  position: absolute;
+}
+
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.l-third.center {
+  margin-left: 50%;
+}
+
+.block {
+  display: block;
+}
+.inline-block {
+  display: inline-block;
+}
+.v-top {
+  vertical-align: top;
+}
+.v-middle {
+  vertical-align: middle;
+}
+.v-bottom {
+  vertical-align: bottom;
+}
+.v-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.r-180 {
+  transform: rotate(180deg);
+}
+
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+.nowrap {
+  white-space: nowrap;
+}
+
+
+/*
+* Mixin for centering blocks vertically
+* http://css-tricks.com/centering-in-the-unknown/
+*/
+%middle-container { //* this should be applied to the parent of the element we want to center vertically
+ &:before {
+   content: '';
+   display: inline-block;
+   height: 100%;
+   vertical-align: middle;
+   margin-right: -0.25em; /* Adjusts for spacing */
+ }
+}
+%middle-element { //* this should be applied to the element we want to center vertically
+ display: inline-block;
+ vertical-align: middle;
+}
+
+
+/*
+ * Media component
+ */
+.media {
+  @include clearfix-me(micro);
+}
+a.media {
+  display: block;
+}
+.media-img {
+  float: left;
+  margin-right: 15px;
+}
+.media-img-ext {
+  float: right;
+  margin-left: 15px;
+  margin-right: 0;
+}
+.media-bd {
+  @include clearfix-me(facebook);
+}
+
+.media--bleed {
+  margin-left: -1px;
+  .media-img {
+    margin-left: -6px;
+    margin-right: 20px;
+  }
+}
+
+.media--wide {
+  margin: 60px 80px 30px 80px;
+  .media-img {
+    margin-top: 20px;
+    margin-right: 80px;
+  }
+}
+
+
+
+/*
+ * Layouts
+ */
+
+.l-container {
+  @extend %cf;
+}
+
+/* Layouts without gutters */
+.l-half {
+  float: left;
+  width: 50%;
+}
+.l-third {
+  float: left;
+  width: 33.3333333%;
+}
+.l-fourth {
+  float: left;
+  width: 25%;
+}
+
+
+/* 2-column layout with gutter defining columns in the mark-up */
+.l-2-col {
+  @extend %cf;
+  .l-col {
+    width: 50%;
+    padding: 0 30px;
+    float: left;
+  }
+  .l-col:first-child {
+    padding-left: 0;
+  }
+  .l-col:last-child {
+    padding-right: 0;
+  }
+}
+
+/* 2-column layout with gutter using CSS multiple columns */
+.l-2-col-auto {
+  column-count: 2;
+  column-gap: 50px;
+  > p:first-child {
+    margin-top: 0;
+  }
+}
+
+/* Layout with fluid main and fixed-width sidebar
+ * http://www.onderhond.com/blog/responsive-grid-old-trick/
+ */
+.l-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.l-wrap-inner {
+  display: flex;
+  max-width: $page-width;
+  margin: 0 auto;
+  position: relative;
+  padding: 0 2.5*$base-spacing 0 4*$base-spacing;
+  z-index: 1;
+}
+.l-wrap-inner--narrow {
+  max-width: $page-width - $logo-width;
+}
+.l-wrap-inner--main-left {
+  padding: 0 (50px + $aside-width + 80px) 0 80px;
+}
+.l-main {
+  float: left;
+  width: 100%;
+  padding-bottom: 80px;
+}
+.l-main--left {
+  padding-right: 60px;
+}
+.l-main--right {
+  padding-left: 60px;
+}
+.l-aside {
+  float: right;
+  position: relative;
+  padding-bottom: 80px;
+}
+.l-aside--right {
+  width: $aside-width + 50px; // aside width + left padding
+  margin-right: -($aside-width + 50px);
+  padding-left: 50px;
+  &:after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 10000px;
+    top: 0px;
+    left: 100%;
+  }
+}
+.l-aside--left {
+  width: $aside-width-wide;
+  &:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 10000px;
+    top: 0px;
+    right: 100%;
+  }
+}
+
+
+/* Flexbox
+ */
+
+@media (min-width: $bp-med) {
+  .md-flex {
+    display: flex;
+  }
+  .md-flex--row-reverse {
+    flex-direction: row-reverse;
+  }
+  .md-flex--space-between {
+    justify-content: space-between;
+  }
+  .md-flex--space-around {
+    justify-content: space-around;
+  }
+  .md-flex-basis--m {
+    flex-basis: 30em;
+  }
+  .md-flex-basis--s {
+    flex-basis: 15em;
+  }
+}
+
+
+/*
+ * Widths, heights and margins.
+ *
+ * ## TODO: Most of these need to be removed
+ * ## when components are normalized
+ */
+
+/* Widths */
+.w-0 {
+  width: 0;
+}
+
+.w-355 {
+  width: 355px; // large blurb width (hero)
+}
+.w-245 {
+  width: 245px;
+}
+.w-240 {
+  width: 240px;
+}
+.w-215 {
+  width: 215px;
+}
+
+
+
+/* Margins */
+
+@for $i from 0 through 25 { // top & bottom margins
+  .mt-#{$i*5} {
+    margin-top: $i * 5px;
+  }
+  .mb-#{$i*5} {
+    margin-bottom: $i * 5px;
+  }
+  .ml-#{$i*5} {
+    margin-left: $i * 5px;
+  }
+  .mr-#{$i*5} {
+    margin-right: $i * 5px;
+  }
+}
+
+@for $i from 1 through 7 { // margins for bleeds and adjustments
+  .mt-#{$i} {
+    margin-top: $i * 1px;
+  }
+  .mb-#{$i} {
+    margin-bottom: $i * 1px;
+  }
+  .ml-#{$i} {
+    margin-left: $i * 1px;
+  }
+  .mr-#{$i} {
+    margin-right: $i * 1px;
+  }
+
+  .ml-n#{$i} {
+    margin-left: $i * -1px;
+  }
+  .mr-n#{$i} {
+    margin-right: $i * -1px;
+  }
+}
+
+@for $i from 1 through 5 { // Margins for pull-outs
+  .ml-n#{$i*10} {
+    margin-left: $i * -10px;
+  }
+}
+
+// TODO: Need to fix svgs for continuous deployment and hosting so they don't have
+// so much space around them. Until then, add a negative margin top
+// for the text under it
+.mt-n10 {
+  margin-top: -10px;
+}

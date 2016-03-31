@@ -1,0 +1,8 @@
+$bp-large:       1280px;   //* Major breakpoint – Comp width
+$bp-med-large:   1176px;      //* Tweak point – Hero breaks
+$bp-med-large-2:  960px;      //* Tweak point – Hero breaks (ipad landscape is in this range)
+$bp-med:          870px;   //* Major breakpoint – Layout changes (ipad portrait is in this range)
+$bp-med-small:    740px;      //* Tweak point – Things start looking too squished
+$bp-small:        680px;   //* Major breakpoint – Every thing gets linearized
+$bp-small-2:      460px;      //* Tweak point – Footer wraps
+$bp-small-3:      360px;      //* Tweak point – try to reduce things further (header, hero, large buttons)

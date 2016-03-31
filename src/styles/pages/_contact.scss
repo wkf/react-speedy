@@ -1,0 +1,129 @@
+/* Layout */
+
+// the big blocks in for contact options
+section.contact-blocks {
+  text-align: left;
+  margin: 50px auto;
+
+  li {
+    width: 31%;
+    float: left;
+    margin: 1%;
+    position: relative;
+  }
+
+  .contact-block-light {
+    p, h5 {
+      color: #669891;
+    }
+  }
+
+  a {
+    min-height: 180px;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: auto 100%;
+    background-color: #82a8a3;
+    padding: 20px;
+
+    &:hover {
+      box-shadow: 0 0 0 3px rgba(white, 0.9) inset;
+    }
+  }
+
+  h5 {
+    font-size: 22px;
+    color: white;
+    font-weight: 300;
+    margin: 0 0 35px 0;
+  }
+
+  p {
+    margin: 0;
+    line-height: 1.4em;
+    font-size: 13px;
+    margin-bottom: 10px;
+    color: white;
+    display: flex;
+    min-height: 40px;
+    align-items: flex-end;
+  }
+
+  a {
+    display: block;
+    position: relative;
+  }
+
+  // the arrow on the callout links
+  .callout-link {
+    padding-left: 30px;
+    color: #427870;
+    font-size: 13px;
+    position: absolute;
+    line-height: 1.4em;
+
+    &:before {
+      content: " ";
+      background-image: url('/img/icon-arrow-white.svg');
+      background-repeat: no-repeat;
+      background-position: left center;
+      height: 18px;
+      width: 18px;
+      position: absolute;
+      left: 0;
+      top: 0px;
+    }
+  }
+
+  // background fun
+  .email {
+    background-color: #9bcdc6;
+    background-image: url('/img/bg-contact-block/email.svg');
+  }
+
+  .phone {
+    background-color: #bcdcd7;
+    background-image: url('/img/bg-contact-block/phone.svg');
+    @extend .contact-block-light;
+  }
+
+  .office {
+    background-color: #79bfb4;
+    background-image: url('/img/bg-contact-block/office.svg');
+  }
+
+  .twitter {
+    background-color: #669891;
+    background-image: url('/img/bg-contact-block/twitter.svg');
+  }
+
+  .github {
+    background-color: #79bfb4;
+    background-image: url('/img/bg-contact-block/github.svg');
+  }
+
+  .facebook {
+    background-color: #d3e5e2;
+    background-image: url('/img/bg-contact-block/facebook.svg');
+    @extend .contact-block-light;
+  }
+
+  .gitter {
+    background-color: #d3e5e2;
+    background-image: url('/img/bg-contact-block/gitter.svg');
+    @extend .contact-block-light;
+  }
+
+  .newsletter {
+    background-color: #9bcdc6;
+    background-image: url('/img/bg-contact-block/newsletter.svg');
+  }
+
+  .linkedin {
+    background-color: #79bfb4;
+    background-image: url('/img/bg-contact-block/linkedin.svg');
+  }
+
+
+
+}

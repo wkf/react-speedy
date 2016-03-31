@@ -1,0 +1,279 @@
+/* Links
+------------------------------*/
+a, a * {
+  text-decoration: none;
+  transition: color 300ms ease;
+}
+
+.inverse a:hover {
+  color: $color-lightest;
+}
+
+/*
+ * Links with a small arrow button to the right
+ */
+.link {
+  padding-right: 22px;
+  background: url(/img/icon-arrow.svg) no-repeat right center;
+}
+
+/*
+ * Links with a small plus button to the left
+ */
+.link-more {
+  display: inline-block;
+  padding-left: 30px;
+  background: url(/img/icon-plus.svg) no-repeat 2px 45%;
+}
+
+
+
+/*
+ * Links that look like buttons
+ */
+.button {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  box-shadow: inset 0 0 7px 0 rgba(0,0,0,0.24);
+  height: 60px;
+  line-height: 60px;
+  border-radius: 60px 4px 4px 60px;
+  text-align: center;
+  text-indent: -10px;
+  font-size: 21px;
+  font-weight: 400;
+  margin-left: -5px;
+  color: $color-lightest;
+  transition: box-shadow 0.2s ease-in;
+}
+.button-icon {
+  position: relative;
+  float: left;
+  margin: 5px;
+  left: 0;
+  transition: left 0.2s ease-in;
+}
+.button-label {
+  display: block;
+  overflow: hidden;
+  padding: 1px 20px 0 20px;
+  color: $color-muted;
+}
+.button:hover {
+  box-shadow: inset 0 0 3px 0 rgba(0,0,0,0.24);
+
+}
+.button.js-clicked {
+  .button-icon {
+    left: 20em;
+  }
+}
+
+
+/* Button colors on inverse background */
+.inverse {
+  .button {
+    color: $color-darkest;
+  }
+  .button-label {
+    color: $color-lightest;
+  }
+  .button--muted,
+  .button--muted .button-label {
+    color: $color-dark;
+  }
+}
+
+
+/* Button size variations */
+.button--large {
+  height: 80px;
+  line-height: 80px;
+  border-radius: 80px 4px 4px 80px;
+  font-size: 27px;
+  margin-left: 0;
+  .button-icon {
+    margin: 6px;
+  }
+  .button-label {
+    padding-left: 0;
+    padding-right: 30px;
+  }
+}
+.button--signup {
+  border-radius: 80px;
+  height: 62px;
+  line-height: 62px;
+  width: 292px;
+  .button-container {
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: $color-highlight;
+    display: block;
+    margin: 6px;
+    border-radius: 80px;
+    height: 50px;
+  }
+  .button-icon {
+    margin: 0;
+    height: 50px;
+    width: 50px;
+  }
+  .button-label {
+    white-space: nowrap;
+    float: left;
+    margin: 0;
+    margin: 0;
+    padding: 0 10px 0 20px;
+    color: $color-lightest;
+    line-height: 50px;
+  }
+}
+
+.button--small {
+  height: 40px;
+  line-height: 40px;
+  border-radius: 40px 2px 2px 40px;
+  font-size: 15px;
+}
+
+
+/* Button layout variations */
+.button--inline {
+  display: inline-block;
+  vertical-align: middle;
+  width: auto;
+  min-width: 120px;
+  top: 1px;
+}
+
+/* Center a button */
+.button--center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/*
+ * Icon links (eg. social links)
+ *
+ * Hover effect: http://tympanus.net/Development/IconHoverEffects/#set-8
+ */
+.icon-link--round {
+  display: inline-block;
+  margin-right: 25px;
+  position: relative;
+  transition: transform ease-out 0.2s;
+  &:after {
+    content: '';
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 100%;
+  }
+
+  @each $name, $color in $colors-social {
+    &.icon-link--#{$name} svg {
+      fill: darken(grayscale($color), 5%);
+    }
+  }
+
+  .no-touch &:hover {
+    transform: scale(0.95);
+    &:after {
+      animation: sonarEffect 1.3s ease-out 75ms;
+    }
+  }
+}
+
+$color-sonar: $color-darker;
+
+@keyframes sonarEffect {
+    0% {
+        opacity: 0.3;
+    }
+    40% {
+        opacity: 0.5;
+        box-shadow: 0 0 0 2px rgba(255,255,255,0.1), 0 0 10px 10px $color-sonar, 0 0 0 10px rgba(255,255,255,0.5);
+    }
+    100% {
+        box-shadow: 0 0 0 2px rgba(255,255,255,0.1), 0 0 10px 10px $color-sonar, 0 0 0 10px rgba(255,255,255,0.5);
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+
+/*
+ * Button with image of video
+ */
+.button-video {
+  display: inline-block;
+  background: url(/img/video.png) no-repeat center center;
+  background-size: cover;
+  position: relative;
+  .callout {
+    @extend .callout--small;
+    @extend .callout--stitch;
+    position: absolute;
+    top: -25px;
+    left: -35px;
+    margin-top: -10px; //* makes it easier to just 0 out the margins when going responsive than to change top and left
+    margin-left: -20px;
+    transition: opacity 0.2s;
+  }
+  .play-button {
+    position: absolute;
+    background: linear-gradient(to right, #f1f1f1, #ececec);
+    width: 102px;
+    height: 102px;
+    top: 50%;
+    left: 50%;
+    margin-top: -56px;
+    margin-left: -54px;
+    border-radius: 100%;
+    transition: box-shadow 0.2s;
+    &:after {
+      content: "";
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 30px 0 34px 61px;
+      border-color: transparent transparent transparent #4BC0B5;
+      position: absolute;
+      top: 20px;
+      left: 29px;
+    }
+  }
+  &:hover .play-button {
+    box-shadow: 2px 2px 25px rgba(0,0,0,0.2);
+  }
+  &.playing {
+    .callout {
+      opacity: 0;
+    }
+    .play-button {
+      display: none;
+    }
+  }
+}
+.button-video--compact {
+  .callout {
+    margin: 0;
+  }
+}
+
+/*
+ * Call to action
+ */
+.cta {
+  max-width: 355px;
+  margin: 45px auto;
+}
+
+.cta--large {
+  max-width: 465px;
+}

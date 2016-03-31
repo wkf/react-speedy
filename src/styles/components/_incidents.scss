@@ -1,0 +1,35 @@
+$incident-spacing: 23px;
+$incident-border: 2px solid $color-highlight-lighter;
+
+.incident {
+  
+  margin-bottom: $incident-spacing;
+
+  .incident-description:last-child {
+    border-bottom: $incident-border;
+    padding-bottom: $incident-spacing - $base-spacing; 
+  }
+
+  .details {
+    @extend %cf;
+    border-bottom: 1px dashed $color-highlight;
+    padding-bottom: $incident-spacing;
+    
+    &.expanded {
+      border-bottom: $incident-border;
+    }
+  }
+  
+  .details-bd {
+    position: relative;
+    top: -$incident-spacing;
+    margin-bottom: -$incident-spacing;
+  }
+}
+
+.no-incidents + .incidents:before {
+  content: '';
+  display: block;
+  border-top: $incident-border;
+  margin-top: $incident-spacing;
+}

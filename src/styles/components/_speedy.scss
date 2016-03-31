@@ -1,0 +1,267 @@
+
+//** Reds
+$color-danger: rgb(242, 222, 222);
+
+$color-worse: rgb(242, 102, 22);
+$color-better: $color-highlight;
+
+$color-less-light: #E5E7E7;
+
+.speedy {
+
+  .bg-danger {
+    background: $color-danger;
+  }
+
+  .question {
+    display: inline-block;
+  }
+
+  .status--small {
+    h1 {
+      display: inline-block;
+    }
+  }
+
+  .loader {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    height: 30px;
+    vertical-align: text-bottom;
+    line-height: 45px;
+    margin-left: 10px;
+  }
+
+  .form--but-not-that-fancy {
+    max-width: 666px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .form-input--invalid {
+    background-color: $color-danger;
+  }
+
+  .question__button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    border-radius: 4px;
+    user-select: none;
+    color: $color-highlight;
+    border-color: $color-highlight;
+    background: $color-lightest;
+  }
+
+  .question__button--inactive {
+    color: $color-highlight-lighter;
+    border-color: $color-highlight-lighter;
+    background: $color-lightest;
+  }
+
+  .radio-button-option {
+    text-align: left;
+
+    label {
+      margin-left: 10px;
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-left: 0;
+    width: 100%;
+    margin-bottom: 60px;
+  }
+
+  th, .th {
+    @include font-weight(medium);
+    background-color: $color-light;
+    color: $color-dark;
+    font-size: 16px;
+  }
+
+  .th--row {
+    @include font-weight(light);
+    background-color: $color-lightest;
+    text-align: left;
+    padding-left: 20px;
+  }
+
+  td, .td {
+    background-color: $color-lightest;
+
+    p {
+      text-align: left;
+    }
+  }
+
+  table, th, .th, td, .td {
+    border: 1px solid $color-less-light;
+  }
+
+  .result--better {
+    color: $color-highlight;
+    font-size: 18px;
+  }
+
+  .result--worse {
+    color: $color-worse;
+    font-size: 18px;
+  }
+
+  .icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+  }
+
+  .icon--info {
+    fill: $color-highlight-lighter;
+    width: 16px;
+    height: 16px;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+
+  .icon--error {
+    fill: $color-worse;
+  }
+
+  .icon--check {
+    fill: $color-better;
+
+  }
+
+  .tooltip {
+    max-width: 200px;
+    line-height: 20px;
+  }
+
+  .target {
+    display: inline-block;
+  }
+
+  .results p {
+    margin-bottom: 30px;
+  }
+
+  .results table {
+    margin-top: 20px;
+  }
+
+  h3 {
+    @include font-weight(light);
+    margin-top: 60px;
+  }
+
+  .url {
+    @include font-weight(medium);
+  }
+
+  .stats {
+    @include clearfix-me(micro);
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+
+  .stats:before, .stats:after {
+    content: " ";
+    position: relative;
+    width: 100%;
+    height: 2px;
+    margin-bottom: -2px;
+    background-color: $color-highlight;
+  }
+
+  .stat {
+    float: left;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 33%;
+  }
+
+  .stat__name {
+    @include font-weight(medium);
+  }
+
+  .stat__name {
+    color: $color-highlight;
+  }
+
+  .results-table__entry--theirs {
+    color: $color-worse;
+  }
+
+  .results-table__entry--ours {
+    color: $color-better;
+  }
+
+  .benefits, .problems {
+    margin-top: 40px;
+    margin-bottom: 60px;
+  }
+
+  .benefit, .problem {
+    color: $color-dark;
+    background: $color-lightest;
+    width: 100%;
+    border: 1px solid $color-less-light;
+    border-top-width: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: left;
+  }
+
+  .benefit a, .problem a {
+    @include font-weight(medium);
+    padding-left: 0.5em;
+  }
+
+  .benefit:first-child, .problem:first-child {
+    border-top-width: 1px;
+  }
+
+  .button--switch {
+    background-color: $color-highlight;
+  }
+
+  .switch {
+    margin-bottom: 60px;
+  }
+
+  .button--switch {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 60px;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: $color-lightest;
+    background-color: $color-highlight;
+    transition: background-color 0.2s ease-in;
+  }
+
+  .button--switch:hover {
+    background-color: darken($color-highlight, 10%);
+  }
+
+}

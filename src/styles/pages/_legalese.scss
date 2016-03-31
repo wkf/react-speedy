@@ -1,0 +1,33 @@
+.legalese {
+  
+  max-width: 690px + 2*30px;
+  padding: 0 30px;
+  margin: 110px auto;
+  color: $color-muted;
+  
+  li {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    @extend .text-h3;
+    @include font-weight(medium);
+  }
+
+  > ol {
+      counter-reset: h2-counter;
+      list-style: none;
+  }
+  
+  > ol h2:before {
+      content: counter(h2-counter, decimal)".";
+      counter-increment: h2-counter;
+      font-weight: bold;
+      display: inline-block;
+      width: 30px;
+      text-align: right;
+      margin-right: 20px;
+      margin-left: -50px;
+  }
+}
