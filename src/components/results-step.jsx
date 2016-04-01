@@ -31,40 +31,40 @@ const ResultsTable = ({store}) => {
 
   const rows = [
     [
-      "HTML download time",
+      "Time to download HTML",
       theirResults.downloadTime,
       ourResults.downloadTime,
-      "Netlify is better, here's why..."
+      "This is the time it takes to download the entire HTML page. The DOMContentLoaded event does not fire until this has completed, so JavaScript apps will typically not run until after this phase is complete."
     ],
     [
-      "HTTPS?",
+      "Server supports HTTPS",
       theirResults.usesHttps ? yes : no,
       ourResults.usesHttps ? yes : no,
-      "HTTPS is important for a number of reasons - see why HTTPS for static sites article."
+      "This determines if your site supports HTTPS, which improves search rank, gives access to better analytics, protects content and users from man-in-the-middle attacks, and ensures access to technologies that don't allow insecure HTTP."
     ],
     [
       "DNS time",
       theirResults.dnsTime,
       ourResults.dnsTime,
-      "Every new visitor to your site will need to do a DNS lookup before their browser can even start connecting to your site. Some setups requires multiple DNS lookups before the browser can get the final IP address to connect to, so if your DNS is slow, new visitors to your site will have to wait for the DNS lookups to complete."
+      "Every time someone visits your site, their browser looks up your site’s IP address before it loads the page, and may happen multiple times. Slow DNS increases the time before your visitors see your content."
     ],
     [
       "Connection time",
       theirResults.connectionTime,
       ourResults.connectionTime,
-      "This is the time it takes for your browser to establish a connection to the IP address returned after the DNS lookup. It will typically depend on the quality of the network connection and the peering agreements between the end user and the server responding to the browser's request."
+      "Every visitor’s browser must connect to to your site’s IP address to receive content. The speed of the connection depends on the visitor’s network speed, your server’s response time, and the peering agreement between each network."
     ],
     [
       "Time to first byte",
       theirResults.timeToFirstByte,
       ourResults.timeToFirstByte,
-      "This is a very important metric for performance. It's the time it takes from the browser starts connecting to the IP address returned by the DNS lookup, and until it starts receiving HTML. This is the point where the browser has the chance to start parsing and rendering things on the screen."
+      "This is an important meteric that measures the time it takes between when your visitor’s browser connects to your site and when it starts to receive HTML."
     ],
     [
       "HTTPS handshake time",
       theirResults.httpsTime,
       ourResults.httpsTime,
-      "If HTTPS is enabled, this is the time it takes to negotiate the encrypted connection between the browser and the server at the IP address returned from the...?"
+      "This is the time it takes a visitor’s browser and your website’s IP address to negotiate an encrypted HTTPS connection."
     ],
     [
       "Secure cipher?",
@@ -77,6 +77,12 @@ const ResultsTable = ({store}) => {
       theirResults.usesSecureAlgorithm ? yes : no,
       ourResults.usesSecureAlgorithm ? yes : no,
       "From the start of 2015, Chrome and Firebox both started to mark all sites using an SSL certificate based on the older SHA1 standard as insecure. So if you have HTTPS enabled but one of these older certificates, you won't get the advantage of a pretty green lock in the browser. In this case we should also link to SSLLabs so they can get scary warnings."
+    ],
+    [
+      "Modern SSL",
+      no,
+      yes,
+      "This determines if your SSL certificate is outdated or insecure."
     ]
   ].map(makeRow);
 
@@ -127,14 +133,13 @@ const makeProblem = ([cause, severity, link = null], i) => {
 const ProblemsList = ({store}) => {
   const problems = [
     [
-      "SSL protects your sensitive information. Use Netlify to add SSL with a single click.",
+      "Add SSL to improve your search rank and protects your content and users",
       "critical",
-      "#"
+      "https://www.netlify.com/blog/2014/10/03/five-reasons-you-want-https-for-your-static-site"
     ],
     [
-      "Sites that use HTTP2 load faster. Netlify uses HTTP2 by default.",
-      "normal",
-      "#"
+      "Switch to HTTP2 to improve your site’s performance.",
+      "normal"
     ]
   ].map(makeProblem);
 
