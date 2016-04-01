@@ -1,17 +1,11 @@
 
-//** Reds
 $color-danger: rgb(242, 222, 222);
-
-$color-worse: rgb(242, 102, 22);
-$color-better: $color-highlight;
-
+$color-danger-darker: rgb(242, 102, 22);
 $color-less-light: #E5E7E7;
 
-.speedy {
+$bp-med-small-2: 770px; //* Tweak point - 3 big stats look too squished
 
-  .bg-danger {
-    background: $color-danger;
-  }
+.speedy {
 
   .question {
     display: inline-block;
@@ -58,7 +52,6 @@ $color-less-light: #E5E7E7;
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.428571429;
-    border-radius: 4px;
     user-select: none;
     color: $color-highlight;
     border-color: $color-highlight;
@@ -119,7 +112,7 @@ $color-less-light: #E5E7E7;
   }
 
   .result--worse {
-    color: $color-worse;
+    color: $color-danger-darker;
     font-size: 18px;
   }
 
@@ -138,17 +131,12 @@ $color-less-light: #E5E7E7;
   }
 
   .icon--error {
-    fill: $color-worse;
+    fill: $color-danger-darker;
   }
 
   .icon--check {
-    fill: $color-better;
+    fill: $color-highlight;
 
-  }
-
-  .tooltip {
-    max-width: 200px;
-    line-height: 20px;
   }
 
   .target {
@@ -204,11 +192,11 @@ $color-less-light: #E5E7E7;
   }
 
   .results-table__entry--theirs {
-    color: $color-worse;
+    color: $color-danger-darker;
   }
 
   .results-table__entry--ours {
-    color: $color-better;
+    color: $color-highlight;
   }
 
   .benefits, .problems {
@@ -230,7 +218,7 @@ $color-less-light: #E5E7E7;
   }
 
   .problem--critical {
-    color: $color-worse;
+    color: $color-danger-darker;
   }
 
   .benefit a, .problem a {
@@ -268,4 +256,33 @@ $color-less-light: #E5E7E7;
   .button--switch:hover {
     background-color: darken($color-highlight, 10%);
   }
+}
+
+@include breakpoint($bp-med-small-2) {
+  .speedy {
+    .stat {
+      width: 100%;
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Popover styles
+
+.Popover {
+  max-width: 60%;
+}
+
+.Popover-body {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 1rem 1rem;
+  background: $color-dark;
+  color: white;
+  border-radius: 4px;
+}
+
+.Popover-tip {
+  color: $color-dark;
 }

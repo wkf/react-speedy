@@ -1,6 +1,4 @@
 import ReactDOM from 'react-dom';
-import ReactFastclick from 'react-fastclick';
-
 import Speedy from './components/speedy';
 import 'style!css!sass!./styles/site.scss';
 
