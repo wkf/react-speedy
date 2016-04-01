@@ -1,5 +1,6 @@
 import Loader from 'react-loader';
-import Tooltip from 'react-tooltip';
+import Popover from 'react-popover';
+import Tappable from 'react-tappable';
 import classNames from 'classnames';
 
 const no = <svg className="icon icon--error"><use xlinkHref="#icon-error"/></svg>;
@@ -8,17 +9,28 @@ const info = <svg className="icon icon--info"><use xlinkHref="#icon-info"/></svg
 
 const arrow = <div className="rc-tooltip-arrow-inner"/>;
 
-const makeRow = ([header, theirs, ours, infoText], i) => {
+const isVisiblePopover = (id, {store}) =>
+  store.get().visiblePopoverId === id;
+
+const togglePopover = (id, {store}) =>
+  store.update({visiblePopoverId: {$set: isVisiblePopover(id, {store}) ? null : id}});
+
+const makeRow = ([header, theirs, ours, infoText, store], i) => {
   const id = "row" + i;
 
   return (
     <tr key={id}>
       <th scope="row" className="th--row">
-        <div className="target" data-tip data-for={id}>
-          {header}
-          {info}
-          <Tooltip class="tooltip" id={id} place="right" type="dark" effect="solid" event="click">{infoText}</Tooltip>
-        </div>
+        <Popover
+            place="right"
+            body={infoText}
+            isOpen={isVisiblePopover(id, {store})}
+            onOuterAction={togglePopover.bind(null, id, {store})}
+        >
+          <Tappable className="toggle" onTap={togglePopover.bind(null, id, {store})}>
+            {header}{info}
+          </Tappable>
+        </Popover>
       </th>
       <td className="results-table__entry--theirs">{theirs}</td>
       <td className="results-table__entry--ours">{ours}</td>
@@ -29,7 +41,7 @@ const makeRow = ([header, theirs, ours, infoText], i) => {
 const ResultsTable = ({store}) => {
   const {url, ourResults, theirResults} = store.get();
 
-  const rows = [
+  const results = [
     [
       "HTML download time",
       theirResults.downloadTime,
@@ -78,19 +90,21 @@ const ResultsTable = ({store}) => {
       ourResults.usesSecureAlgorithm ? yes : no,
       "From the start of 2015, Chrome and Firebox both started to mark all sites using an SSL certificate based on the older SHA1 standard as insecure. So if you have HTTPS enabled but one of these older certificates, you won't get the advantage of a pretty green lock in the browser. In this case we should also link to SSLLabs so they can get scary warnings."
     ]
-  ].map(makeRow);
+  ].map(xs => xs.concat(store)).map(makeRow);
 
   return (
-    <table className="table">
-      <thead>
-        <tr width="400">
-          <th scope="col" width="200"></th>
-          <th scope="col" width="100">Your site</th>
-          <th scope="col" width="100">Switch to Netlify</th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </table>
+    <section>
+      <table className="table">
+        <thead>
+          <tr width="400">
+            <th scope="col" width="200"></th>
+            <th scope="col" width="100">Your site</th>
+            <th scope="col" width="100">Switch to Netlify</th>
+          </tr>
+        </thead>
+        <tbody>{results}</tbody>
+      </table>
+    </section>
   );
 };
 
@@ -105,7 +119,7 @@ const StatsList = ({store}) => {
   const stats = [
     ["Download speed", "+1000%"],
     ["Estimated conversion increase", "+13.5%"],
-    ["Estimated search rank increas", "+12%"]
+    ["Estimated search rank increase", "+12%"]
   ].map(makeStat);
 
   return <ul className="stats">{stats}</ul>;
