@@ -1,31 +1,13 @@
 
+// Colors
+
 $color-danger: rgb(242, 222, 222);
 $color-danger-darker: rgb(242, 102, 22);
 $color-less-light: #E5E7E7;
 
-$bp-med-small-2: 770px; //* Tweak point - 3 big stats look too squished
-
 .speedy {
 
-  .question {
-    display: inline-block;
-  }
-
-  .status--small {
-    h1 {
-      display: inline-block;
-    }
-  }
-
-  .loader {
-    display: inline-block;
-    position: relative;
-    width: 40px;
-    height: 30px;
-    vertical-align: text-bottom;
-    line-height: 45px;
-    margin-left: 10px;
-  }
+  // UrlFormStep
 
   .form--but-not-that-fancy {
     max-width: 666px;
@@ -37,89 +19,101 @@ $bp-med-small-2: 770px; //* Tweak point - 3 big stats look too squished
     background-color: $color-danger;
   }
 
-  .question__button {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 4px;
-    font-weight: 400;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    background-image: none;
-    border: 1px solid transparent;
-    white-space: nowrap;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.428571429;
-    user-select: none;
-    color: $color-highlight;
-    border-color: $color-highlight;
-    background: $color-lightest;
+  // QuestionStep
+
+  .loader__title {
+    display: inline-block;
   }
 
-  .question__button--inactive {
-    color: $color-highlight-lighter;
-    border-color: $color-highlight-lighter;
-    background: $color-lightest;
+  .loader__spinner {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    height: 30px;
+    vertical-align: text-bottom;
+    line-height: 45px;
+    margin-left: 10px;
   }
 
-  .radio-button-option {
+  .question {
+    display: inline-block;
+  }
+
+  .radio-button {
     text-align: left;
-
-    label {
-      margin-left: 10px;
-    }
   }
 
-  table {
+  .radio-button__label {
+    margin-left: 10px;
+  }
+
+  // ResultsStep
+
+  .results-header {
+    margin-top: 60px;
+  }
+
+  .results-header__title {
+    @include font-weight(light);
+  }
+
+  .results-header__url {
+    @include font-weight(medium);
+  }
+
+  .results-table {
     border-collapse: collapse;
     border-spacing: 0;
     margin-left: 0;
     width: 100%;
     margin-bottom: 60px;
+    background-color: $color-lightest;
+    border: 1px solid $color-less-light;
   }
 
-  th, .th {
+  .results-table__col-header {
     @include font-weight(medium);
     background-color: $color-light;
     color: $color-dark;
     font-size: 16px;
-  }
-
-  .th--row {
-    @include font-weight(light);
-    background-color: $color-lightest;
-    text-align: left;
-    padding-left: 20px;
-  }
-
-  td, .td {
-    background-color: $color-lightest;
-
-    p {
-      text-align: left;
-    }
-  }
-
-  table, th, .th, td, .td {
     border: 1px solid $color-less-light;
   }
 
-  .result--better {
-    color: $color-highlight;
-    font-size: 18px;
+  .results-table__row-header {
+    @include font-weight(light);
+    background-color: $color-lightest;
+    color: $color-dark;
+    font-size: 16px;
+    text-align: left;
+    padding-left: 20px;
+    border: 1px solid $color-less-light;
   }
 
-  .result--worse {
+  .results-table__entry {
+    background-color: $color-lightest;
+    border: 1px solid $color-less-light;
+  }
+
+  .results-table__entry--theirs {
     color: $color-danger-darker;
-    font-size: 18px;
+  }
+
+  .results-table__entry--ours {
+    color: $color-highlight;
   }
 
   .icon {
     display: inline-block;
     width: 24px;
     height: 24px;
+  }
+
+  .icon--error {
+    fill: $color-danger-darker;
+  }
+
+  .icon--check {
+    fill: $color-highlight;
   }
 
   .icon--info {
@@ -130,43 +124,16 @@ $bp-med-small-2: 770px; //* Tweak point - 3 big stats look too squished
     vertical-align: middle;
   }
 
-  .icon--error {
-    fill: $color-danger-darker;
-  }
-
-  .icon--check {
-    fill: $color-highlight;
-
-  }
-
-  .target {
-    display: inline-block;
-  }
-
-  .results p {
-    margin-bottom: 30px;
-  }
-
-  .results table {
-    margin-top: 20px;
-  }
-
-  h3 {
-    @include font-weight(light);
-    margin-top: 60px;
-  }
-
-  .url {
-    @include font-weight(medium);
-  }
-
   .stats {
-    @include clearfix-me(micro);
     margin-top: 60px;
     margin-bottom: 60px;
   }
 
-  .stats:before, .stats:after {
+  .stats-list {
+    @include clearfix-me(micro);
+  }
+
+  .stats-list:before, .stats-list:after {
     content: " ";
     position: relative;
     width: 100%;
@@ -177,7 +144,7 @@ $bp-med-small-2: 770px; //* Tweak point - 3 big stats look too squished
 
   .stat {
     float: left;
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 20px;
     width: 33%;
   }
@@ -188,14 +155,6 @@ $bp-med-small-2: 770px; //* Tweak point - 3 big stats look too squished
 
   .stat__value {
     @include font-weight(medium);
-    color: $color-highlight;
-  }
-
-  .results-table__entry--theirs {
-    color: $color-danger-darker;
-  }
-
-  .results-table__entry--ours {
     color: $color-highlight;
   }
 
@@ -221,24 +180,44 @@ $bp-med-small-2: 770px; //* Tweak point - 3 big stats look too squished
     color: $color-danger-darker;
   }
 
-  .benefit a, .problem a {
+  .benefit__link, .problem__link {
     @include font-weight(medium);
     padding-left: 0.5em;
   }
 
   .benefit:first-child, .problem:first-child {
-    border-top-width: 1px;
+                          border-top-width: 1px;
+                        }
+
+  .simple-button {
+    // Button style from the netlify web app
+    @include font-weight(normal);
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    user-select: none;
+    color: $color-highlight;
+    border-color: $color-highlight;
+    background: $color-lightest;
   }
 
-  .button--switch {
-    background-color: $color-highlight;
+  .simple-button--inactive {
+    color: $color-highlight-lighter;
+    border-color: $color-highlight-lighter;
+    background: $color-lightest;
   }
 
-  .switch {
-    margin-bottom: 60px;
-  }
-
-  .button--switch {
+  .pill-button {
     position: relative;
     display: inline-block;
     overflow: hidden;
@@ -253,10 +232,14 @@ $bp-med-small-2: 770px; //* Tweak point - 3 big stats look too squished
     transition: background-color 0.2s ease-in;
   }
 
-  .button--switch:hover {
+  .pill-button:hover {
     background-color: darken($color-highlight, 10%);
   }
 }
+
+// Breakpoints
+
+$bp-med-small-2: 770px; //* Tweak point - 3 big stats look too squished
 
 @include breakpoint($bp-med-small-2) {
   .speedy {
@@ -268,18 +251,17 @@ $bp-med-small-2: 770px; //* Tweak point - 3 big stats look too squished
   }
 }
 
-// Popover styles
+// ReactPopover styles
 
 .Popover {
   max-width: 60%;
 }
 
 .Popover-body {
-  display: inline-flex;
-  flex-direction: column;
-  padding: 1rem 1rem;
+  display: inline-block;
+  padding: 1em 1em;
   background: $color-dark;
-  color: white;
+  color: $color-lightest;
   border-radius: 4px;
 }
 
