@@ -25,16 +25,6 @@ $color-less-light: #E5E7E7;
     display: inline-block;
   }
 
-  .loader__spinner {
-    display: inline-block;
-    position: relative;
-    width: 40px;
-    height: 30px;
-    vertical-align: text-bottom;
-    line-height: 45px;
-    margin-left: 10px;
-  }
-
   .question {
     display: inline-block;
   }
@@ -59,6 +49,21 @@ $color-less-light: #E5E7E7;
 
   .results-header__url {
     @include font-weight(medium);
+  }
+
+  .spinner {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    height: 30px;
+    vertical-align: text-bottom;
+    line-height: 45px;
+    margin-left: 10px;
+  }
+
+  .results-error {
+    @include font-weight(normal);
+    color: $color-danger-darker;
   }
 
   .results-table {

@@ -37,7 +37,12 @@ const SEED = {
     httpsTime: 100,
     usesSecureCipher: false,
     usesSecureAlgorithm: false
-  }
+  },
+
+  visiblePopoverId: null,
+
+  resultsLoaded: false,
+  apiError: null
 };
 
 export default class Speedy extends React.Component {

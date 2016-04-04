@@ -1,25 +1,36 @@
 import classNames from 'classnames';
+import {testSite, testSiteStub} from '../modules/speedy-api';
 
 const DOMAIN_REGEX = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/;
 
 const validateUrl = (url) =>
   (url && DOMAIN_REGEX.test(url)) ? true : false;
 
-/* const runSpeedTest = (store) => {
-   window.fetch('https://api.netlify.com/api/v1/speed_tests', {
-   method: 'POST',
-   headers: {
-   'Accept': 'application/json',
-   'Content-Type': 'text/plain'
-   },
-   body: store.get().url
-   });
-   };
- */
+const updateResults = (store, results) =>
+  store.update({
+    resultsLoaded: {$set: true},
+    theirResults: {$set: results}
+  });
+
+const updateError = (store, error) =>
+  store.update({
+    apiError: {$set: error}
+  });
 
 const onGo = ({store, nextStep}, e) => {
+  const {url, isValidUrl} = store.get();
+
   e.preventDefault();
- store.get().isValidUrl && nextStep();
+
+  if (isValidUrl) {
+    // TODO: switch to testSite when API is live...
+    testSiteStub(
+      url,
+      updateResults.bind(null, store),
+      updateError.bind(null, store)
+    );
+    nextStep();
+  }
 };
 
 const onChange = ({store}, e) =>

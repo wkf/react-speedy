@@ -1,11 +1,7 @@
-import classNames from 'classnames';
 import Loader from 'react-loader';
+import classNames from 'classnames';
 
-const LOADER_OPTIONS = {
-  width: 2,
-  length: 5,
-  radius: 7
-};
+import {LOADER_OPTIONS} from '../constants';
 
 const onChange = ({store}, n, e) =>
   store.update({questions: {[n]: {selected: {$set: e.target.value}}}});
@@ -37,7 +33,7 @@ const QuestionStep = (props) => {
     <section className="bb bb-muted mt-90 mb-90">
       <header className="loader">
         <h1 className="loader__title mb-40">{props.store.get().url}</h1>
-        <Loader parentClassName="loader__spinner" loaded={false} options={LOADER_OPTIONS}/>
+        <Loader parentClassName="spinner" loaded={props.store.get().resultsLoaded} options={LOADER_OPTIONS}/>
       </header>
       <section className="question">
         <h4 className="mt-0 mb-30">{question.title}</h4>
