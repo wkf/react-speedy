@@ -9,7 +9,10 @@ const PATHS = {
 };
 
 const common = {
-  entry: PATHS.app,
+  entry: [
+    'babel-polyfill',
+    PATHS.app
+  ],
 
   resolve: {
     extensions: ['', '.js', '.jsx', '.scss']
@@ -37,7 +40,10 @@ const common = {
   },
 
   plugins: [
-    new webpack.ProvidePlugin({ React: 'react' })
+    new webpack.ProvidePlugin({
+      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
+      React: 'react'
+    })
   ]
 };
 

@@ -15,7 +15,7 @@ const usesWordpress = (store) => store.get().questions[1].selected === 'Wordpres
 const BenefitsList = ({store}) => {
   const benefits = [
     [
-      "With Netlify, get HTTPS for free with one click.",
+      "With Netlify, get HTTPS and HTTP2 for free with one click.",
       null,
       alwaysShow
     ],

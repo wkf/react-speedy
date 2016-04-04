@@ -5,9 +5,21 @@ const DOMAIN_REGEX = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,}
 const validateUrl = (url) =>
   (url && DOMAIN_REGEX.test(url)) ? true : false;
 
+/* const runSpeedTest = (store) => {
+   window.fetch('https://api.netlify.com/api/v1/speed_tests', {
+   method: 'POST',
+   headers: {
+   'Accept': 'application/json',
+   'Content-Type': 'text/plain'
+   },
+   body: store.get().url
+   });
+   };
+ */
+
 const onGo = ({store, nextStep}, e) => {
   e.preventDefault();
-  store.get().isValidUrl && nextStep();
+ store.get().isValidUrl && nextStep();
 };
 
 const onChange = ({store}, e) =>

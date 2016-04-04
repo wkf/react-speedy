@@ -18,12 +18,13 @@ const SEED = {
     }
   ],
   ourResults: {
-    dnsTime: 100,
-    connectionTime: 100,
-    timeToFirstByte: 100,
-    downloadTime: 1000,
+    dnsTime: 4,
+    connectionTime: 2,
+    timeToFirstByte: 2,
+    downloadTime: 700,
     usesHttps: true,
-    httpsTime: 10,
+    usesHttp2: true,
+    httpsTime: 2,
     usesSecureCipher: true,
     usesSecureAlgorithm: true
   },
