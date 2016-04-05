@@ -46,7 +46,7 @@ const UrlFormStep = (props) => (
       <p className="zeta p--wide muted">Type in your site's domain. Make sure you enter a valid domain name. Leave out http or any trailing slashes.</p>
     </header>
     <form className="form form--fancy form--but-not-that-fancy mt-40 mb-60">
-      <p className="form-group">
+      <p className="form-group--full">
         <input
             type="url"
             required={true}

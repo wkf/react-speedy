@@ -15,6 +15,13 @@ $color-less-light: #E5E7E7;
     margin-right: auto;
   }
 
+  .form-group--full {
+    float: left;
+    margin: 0;
+    width: 100%;
+    padding-right: 6px;
+  }
+
   .form-input--invalid {
     background-color: $color-danger;
   }
@@ -161,6 +168,8 @@ $color-less-light: #E5E7E7;
   .stat__value {
     @include font-weight(medium);
     color: $color-highlight;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
   .benefits, .problems {
