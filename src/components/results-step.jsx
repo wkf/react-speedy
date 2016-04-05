@@ -21,7 +21,7 @@ const ResultsStep = ({store}) => {
       <ProblemsList store={store}/>
       <BenefitsList store={store}/>
       <section>
-        <a className="pill-button" href="#">See how easy it is to switch</a>
+        <a className="pill-button" href="https://app.netlify.com">See how easy it is to switch</a>
       </section>
     </Loader>
   );
