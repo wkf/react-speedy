@@ -21,17 +21,17 @@ const BenefitsList = ({store}) => {
     ],
     [
       "What makes Netlify so much faster and more secure?",
-      "#",
+      "https://www.netlify.com/why-static",
       alwaysShow
     ],
     [
       "79% of all Wordpress sites are susceptible to known vulnerabilities.",
-      "#",
+      null,
       usesWordpress
     ],
     [
       "Using rails? Your site has to build every page it shows a visitor, causing slow load times. By switching to static, you can dramatically increase your site's performance.",
-      "#",
+      null,
       usesRails
     ]
   ].filter(([d, l, shouldShow]) => shouldShow(store)).map(makeBenefit);

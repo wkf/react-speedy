@@ -42,13 +42,13 @@ const ResultsTable = ({store}) => {
       "HTML download time",
       theirResults.downloadTime + 'ms',
       ourResults.downloadTime + 'ms',
-      "Netlify is better, here's why..."
+      "The time it takes before the whole HTML page has been downloaded by the browser. Scripts included at the end of the page won't start loading at all before this point. The DOMContentLoaded event on the page won't fire before this step has been completed. Typically any JavaScript you run on the page, won't start doing things before this phase is complete."
     ],
     [
       "HTTPS?",
       theirResults.usesHttps ? yes : no,
       ourResults.usesHttps ? yes : no,
-      "HTTPS is important for a number of reasons - see why HTTPS for static sites article."
+      "Hyper Text Transfer Protocol Secure (HTTPS) is the secure version of HTTP, the protocol over which data is sent between your browser and the website that you are connected to. It means all communications between your browser and the website are encrypted."
     ],
     [
       "DNS time",
@@ -72,19 +72,19 @@ const ResultsTable = ({store}) => {
       "HTTPS handshake time",
       theirResults.httpsTime + 'ms',
       ourResults.httpsTime + 'ms',
-      "If HTTPS is enabled, this is the time it takes to negotiate the encrypted connection between the browser and the server at the IP address returned from the...?"
+      "If HTTPS is enabled, this is the time it takes to negotiate the encrypted connection between the browser and the server at the IP address returned from the DNS lookup."
     ],
     [
       "Secure cipher?",
       theirResults.usesSecureCipher ? yes : no,
       ourResults.usesSecureCipher ? yes : no,
-      "We won't show the raw data for this. But in some cases the server will be configured to use an old encryption mechanism that's no longer secure when using HTTPS. If we spot this, we can link people to the full SSL test at SSLLabs where they'll be told that their SSL setup is bad and insecure."
+      "HTTPS supports multiple ciphers. In some cases the server will be configured to use an old encryption mechanism with known vulnerabilities."
     ],
     [
       "Secure algorithm?",
       theirResults.usesSecureAlgorithm ? yes : no,
       ourResults.usesSecureAlgorithm ? yes : no,
-      "From the start of 2015, Chrome and Firebox both started to mark all sites using an SSL certificate based on the older SHA1 standard as insecure. So if you have HTTPS enabled but one of these older certificates, you won't get the advantage of a pretty green lock in the browser. In this case we should also link to SSLLabs so they can get scary warnings."
+      "HTTPS supports multiple algorithms. Since the start of 2015, Chrome and Firebox both started to mark all sites using an SSL certificate based on the older SHA1 standard as insecure."
     ]
   ].map(xs => xs.concat(store)).map(makeRow);
 
