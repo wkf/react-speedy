@@ -1,6 +1,7 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const PATHS = {
   app: path.join(__dirname, 'src', 'index'),
@@ -9,10 +10,7 @@ const PATHS = {
 };
 
 const common = {
-  entry: [
-    'babel-polyfill',
-    PATHS.app
-  ],
+  entry: PATHS.app,
 
   resolve: {
     extensions: ['', '.js', '.jsx', '.scss']
@@ -20,7 +18,7 @@ const common = {
 
   output: {
     path: PATHS.build,
-    filename: 'bundle.js'
+    filename: 'app.bundle.js'
   },
 
   module: {
@@ -29,17 +27,16 @@ const common = {
         test: /\.jsx?$/,
         loader: 'babel',
         exclude: PATHS.exclude
+      },
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1!sass')
       }
-      // ,
-      // {
-      //   test: /\.scss$/,
-      //   loaders: ['style', 'css', 'sass'],
-      //   exclude: PATHS.exclude
-      // }
     ]
   },
 
   plugins: [
+    new ExtractTextPlugin('style/app.css', {allChunks: true}),
     new webpack.ProvidePlugin({
       fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
       React: 'react'
@@ -59,7 +56,7 @@ const configs = {
       progress: true,
       stats: 'errors-only',
       host: process.env.HOST || '0.0.0.0',
-      port: process.env.PORT || '8080'
+      port: process.env.PORT || '8081'
     },
 
     module: {
@@ -68,20 +65,21 @@ const configs = {
           test: /\.jsx?$/,
           loaders: ['react-hot', 'babel'],
           exclude: PATHS.exclude
+        },
+        {
+          test: /\.scss$/,
+          loader: 'style!css?importLoaders=1!sass'
         }
-        // ,
-        // {
-        //   test: /\.scss$/,
-        //   loaders: ['style', 'css', 'sass'],
-        //   exclude: PATHS.exclude
-        // }
       ]
     },
 
     plugins: [
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.ProvidePlugin({
+        fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch',
+        React: 'react'
+      })
     ]
-
   })
 };
 
