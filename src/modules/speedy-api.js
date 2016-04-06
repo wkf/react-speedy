@@ -55,12 +55,10 @@ const getSpeedTest = ({id}) => {
   }).then(checkStatus).then(parseResponse);
 };
 
-const nsToMs = (ns) => ns / 10000000;
+const nsToMs = (ns) => ns / 1000000;
 const averageForKey = (rs, k) => rs.reduce((acc, r) => acc + r[k], 0) / rs.length;
 
 const parseResults = (results) => {
-  console.log(results);
-
   const _results =  Object.keys(results).map((k) => {
     return {
       dnsTime: nsToMs(results[k].dns_resolve),
@@ -68,7 +66,8 @@ const parseResults = (results) => {
       timeToFirstByte: nsToMs(results[k].first_byte),
       downloadTime: nsToMs(results[k].complete_load),
       httpsTime: nsToMs(results[k].tls_handshake),
-      usesHttps: results[k].is_https
+      usesHttps: (results[k].is_https && results[k].error_code === ""),
+      badCertificates: (results[k].is_https && results[k].error_code === "bad_certificates")
     };
   });
 
@@ -78,7 +77,8 @@ const parseResults = (results) => {
     timeToFirstByte: averageForKey(_results, 'timeToFirstByte'),
     downloadTime: averageForKey(_results, 'downloadTime'),
     httpsTime: averageForKey(_results, 'httpsTime'),
-    usesHttps: _results.reduce((acc, r) => acc || r.usesHttps)
+    usesHttps: _results.reduce((acc, r) => acc || r.usesHttps, false),
+    badCertificates: _results.reduce((acc, r) => acc || r.badCertificates, false)
   };
 };
 
