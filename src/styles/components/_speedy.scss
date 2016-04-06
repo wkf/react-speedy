@@ -106,11 +106,15 @@ $color-less-light: #E5E7E7;
     border: 1px solid $color-less-light;
   }
 
-  .results-table__entry--theirs {
+  .results-table__entry--worse {
     color: $color-danger-darker;
   }
 
-  .results-table__entry--ours {
+  .results-table__entry--better {
+    color: $color-highlight;
+  }
+
+  .results-table__entry--tie {
     color: $color-highlight;
   }
 
@@ -200,8 +204,8 @@ $color-less-light: #E5E7E7;
   }
 
   .benefit:first-child, .problem:first-child {
-                          border-top-width: 1px;
-                        }
+     border-top-width: 1px;
+  }
 
   .simple-button {
     // Button style from the netlify web app
