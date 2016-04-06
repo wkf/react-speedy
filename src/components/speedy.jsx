@@ -18,10 +18,11 @@ const SEED = {
     }
   ],
   ourResults: {
-    dnsTime: 4,
+    dnsTime: 0.5,
     connectionTime: 2,
     timeToFirstByte: 2,
-    downloadTime: 700,
+    downloadTime: 0,
+    downloadSpeed: 610,
     usesHttps: true,
     usesHttp2: true,
     httpsTime: 2,

@@ -33,7 +33,7 @@ const makeEntries = ([theirs, ours, format, compare]) => {
   }
 };
 
-const makeRow = ([header, theirs, ours, infoText, format, compare, store], i) => {
+const makeRow = ([show, header, theirs, ours, infoText, format, compare, store], i) => {
   const id = "row" + i;
   const [theirEntry, ourEntry] = makeEntries([theirs, ours, format, compare]);
 
@@ -92,11 +92,15 @@ const compareBool = (x, y) => {
   }
 };
 
+const alwaysShow = (store) => true;
+const usesHttps = (store) =>  store.get().theirResults.usesHttps;
+
 const ResultsTable = ({store}) => {
   const {url, ourResults, theirResults} = store.get();
 
   const results = [
     [
+      alwaysShow,
       "HTML download time",
       theirResults.downloadTime,
       ourResults.downloadTime,
@@ -105,6 +109,7 @@ const ResultsTable = ({store}) => {
       compareMs
     ],
     [
+      alwaysShow,
       "HTTPS?",
       theirResults.usesHttps ? yes : no,
       ourResults.usesHttps ? yes : no,
@@ -113,6 +118,7 @@ const ResultsTable = ({store}) => {
       compareBool
     ],
     [
+      alwaysShow,
       "DNS time",
       theirResults.dnsTime,
       ourResults.dnsTime,
@@ -121,6 +127,7 @@ const ResultsTable = ({store}) => {
       compareMs
     ],
     [
+      alwaysShow,
       "Time to first byte",
       theirResults.timeToFirstByte,
       ourResults.timeToFirstByte,
@@ -129,6 +136,7 @@ const ResultsTable = ({store}) => {
       compareMs
     ],
     [
+      usesHttps,
       "HTTPS handshake time",
       theirResults.httpsTime,
       ourResults.httpsTime,
@@ -136,7 +144,7 @@ const ResultsTable = ({store}) => {
       formatMs,
       compareMs
     ]
-  ].map(xs => xs.concat(store)).map(makeRow);
+  ].filter(([shouldShow]) => shouldShow(store)).map(xs => xs.concat(store)).map(makeRow);
 
   return (
     <section className="results">

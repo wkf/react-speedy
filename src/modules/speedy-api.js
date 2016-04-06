@@ -61,6 +61,7 @@ const averageForKey = (rs, k) => rs.reduce((acc, r) => acc + r[k], 0) / rs.lengt
 const parseResults = (results) => {
   const _results =  Object.keys(results).map((k) => {
     return {
+      contentSize: results[k].content_size,
       dnsTime: nsToMs(results[k].dns_resolve),
       connectionTime: nsToMs(results[k].connect),
       timeToFirstByte: nsToMs(results[k].first_byte),
@@ -72,6 +73,7 @@ const parseResults = (results) => {
   });
 
   return {
+    contentSize: averageForKey(_results, 'contentSize'),
     dnsTime: averageForKey(_results, 'dnsTime'),
     connectionTime: averageForKey(_results, 'connectionTime'),
     timeToFirstByte: averageForKey(_results, 'timeToFirstByte'),

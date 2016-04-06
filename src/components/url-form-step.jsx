@@ -6,10 +6,16 @@ const DOMAIN_REGEX = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,}
 const validateUrl = (url) =>
   (url && DOMAIN_REGEX.test(url)) ? true : false;
 
+const estimateDownloadTime = (store, results) =>
+  Math.max(results.contentSize / store.get().ourResults.downloadSpeed, 50);
+
 const updateResults = (store, results) =>
   store.update({
     resultsLoaded: {$set: true},
-    theirResults: {$set: results}
+    theirResults: {$set: results},
+    ourResults: {
+      downloadTime: {$set: estimateDownloadTime(store, results)}
+    }
   });
 
 const updateError = (store, error) =>
