@@ -71,9 +71,9 @@ const compareMs = (x, y) => {
   const _x = Math.round(x);
   const _y = Math.round(y);
 
-  if (x === y) {
+  if (_x === _y) {
     return "tie";
-  } else if (x < y) {
+  } else if (_x < _y) {
     return "better";
   } else {
     return "worse";
