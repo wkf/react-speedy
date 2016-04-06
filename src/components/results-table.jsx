@@ -40,8 +40,8 @@ const ResultsTable = ({store}) => {
   const results = [
     [
       "HTML download time",
-      theirResults.downloadTime + 'ms',
-      ourResults.downloadTime + 'ms',
+      Math.round(theirResults.downloadTime) + 'ms',
+      Math.round(ourResults.downloadTime) + 'ms',
       "The time it takes before the whole HTML page has been downloaded by the browser. Scripts included at the end of the page won't start loading at all before this point. The DOMContentLoaded event on the page won't fire before this step has been completed. Typically any JavaScript you run on the page, won't start doing things before this phase is complete."
     ],
     [
@@ -52,39 +52,27 @@ const ResultsTable = ({store}) => {
     ],
     [
       "DNS time",
-      theirResults.dnsTime + 'ms',
-      ourResults.dnsTime + 'ms',
+      Math.round(theirResults.dnsTime) + 'ms',
+      Math.round(ourResults.dnsTime) + 'ms',
       "Every new visitor to your site will need to do a DNS lookup before their browser can even start connecting to your site. Some setups requires multiple DNS lookups before the browser can get the final IP address to connect to, so if your DNS is slow, new visitors to your site will have to wait for the DNS lookups to complete."
     ],
     [
       "Connection time",
-      theirResults.connectionTime + 'ms',
-      ourResults.connectionTime + 'ms',
+      Math.round(theirResults.connectionTime) + 'ms',
+      Math.round(ourResults.connectionTime) + 'ms',
       "This is the time it takes for your browser to establish a connection to the IP address returned after the DNS lookup. It will typically depend on the quality of the network connection and the peering agreements between the end user and the server responding to the browser's request."
     ],
     [
       "Time to first byte",
-      theirResults.timeToFirstByte + 'ms',
-      ourResults.timeToFirstByte + 'ms',
+      Math.round(theirResults.timeToFirstByte) + 'ms',
+      Math.round(ourResults.timeToFirstByte) + 'ms',
       "This is a very important metric for performance. It's the time it takes from the browser starts connecting to the IP address returned by the DNS lookup, and until it starts receiving HTML. This is the point where the browser has the chance to start parsing and rendering things on the screen."
     ],
     [
       "HTTPS handshake time",
-      theirResults.httpsTime + 'ms',
-      ourResults.httpsTime + 'ms',
+      Math.round(theirResults.httpsTime) + 'ms',
+      Math.round(ourResults.httpsTime) + 'ms',
       "If HTTPS is enabled, this is the time it takes to negotiate the encrypted connection between the browser and the server at the IP address returned from the DNS lookup."
-    ],
-    [
-      "Secure cipher?",
-      theirResults.usesSecureCipher ? yes : no,
-      ourResults.usesSecureCipher ? yes : no,
-      "HTTPS supports multiple ciphers. In some cases the server will be configured to use an old encryption mechanism with known vulnerabilities."
-    ],
-    [
-      "Secure algorithm?",
-      theirResults.usesSecureAlgorithm ? yes : no,
-      ourResults.usesSecureAlgorithm ? yes : no,
-      "HTTPS supports multiple algorithms. Since the start of 2015, Chrome and Firebox both started to mark all sites using an SSL certificate based on the older SHA1 standard as insecure."
     ]
   ].map(xs => xs.concat(store)).map(makeRow);
 

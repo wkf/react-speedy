@@ -23,8 +23,7 @@ const onGo = ({store, nextStep}, e) => {
   e.preventDefault();
 
   if (isValidUrl) {
-    // TODO: switch to testSite when API is live...
-    testSiteStub(
+    testSite(
       url,
       updateResults.bind(null, store),
       updateError.bind(null, store)
