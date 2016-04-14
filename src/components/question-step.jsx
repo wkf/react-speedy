@@ -1,13 +1,9 @@
 import Loader from 'react-loader';
-import classNames from 'classnames';
 
 import {LOADER_OPTIONS} from '../constants';
 
-const onChange = ({store}, n, e) =>
-  store.update({questions: {[n]: {selected: {$set: e.target.value}}}});
-
-const onNext = ({nextStep}, e) => {
-  e.preventDefault();
+const onSelect = ({store, nextStep, number}, e) => {
+  store.update({questions: {[number]: {selected: {$set: e.target.value}}}});
   nextStep();
 };
 
@@ -23,9 +19,13 @@ const QuestionStep = (props) => {
           name="question"
           value={o}
           checked={question.selected === o}
-          onChange={onChange.bind(null, props, props.number)}
+          onChange={onSelect.bind(null, props)}
       />
-      <label className="radio-button__label" htmlFor={o}>{o}</label>
+      <label
+          htmlFor={o}
+          className="radio-button__label"
+          onClick={onSelect.bind(null, props)}
+      >{o}</label>
     </div>
   ));
 
@@ -35,19 +35,9 @@ const QuestionStep = (props) => {
         <h1 className="loader__title mb-40">{props.store.get().url}</h1>
         <Loader parentClassName="spinner" loaded={props.store.get().resultsLoaded} options={LOADER_OPTIONS}/>
       </header>
-      <section className="question">
+      <section className="question mb-60">
         <h4 className="mt-0 mb-30">{question.title}</h4>
-        <form>
-          <div>{options}</div>
-          <button
-              type="submit"
-              className={classNames('mt-30', 'mb-40', {
-                  'simple-button': true,
-                  'simple-button--inactive': !getQuestion(props).selected
-                })}
-              onClick={onNext.bind(null, props)}
-          >Next</button>
-        </form>
+        <form>{options}</form>
       </section>
     </section>
   );

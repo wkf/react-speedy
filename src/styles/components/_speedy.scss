@@ -207,34 +207,6 @@ $color-less-light: #E5E7E7;
      border-top-width: 1px;
   }
 
-  .simple-button {
-    // Button style from the netlify web app
-    @include font-weight(normal);
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 4px;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    background-image: none;
-    border: 1px solid transparent;
-    white-space: nowrap;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.428571429;
-    user-select: none;
-    color: $color-highlight;
-    border-color: $color-highlight;
-    background: $color-lightest;
-  }
-
-  .simple-button--inactive {
-    color: $color-highlight-lighter;
-    border-color: $color-highlight-lighter;
-    background: $color-lightest;
-  }
-
   .pill-button {
     position: relative;
     display: inline-block;
