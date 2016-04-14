@@ -1,10 +1,11 @@
 import classNames from 'classnames';
 import {testSite, testSiteStub} from '../modules/speedy-api';
 
-const DOMAIN_REGEX = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/;
+// Should accept url-ish strings with an optional scheme, domain name, ip, and port
+const URLISH_REGEX = /^(https?:\/\/)?([a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+|(\d{1,3}\.){3}\d{1,3})(\:\d+)?$/;
 
 const validateUrl = (url) =>
-  (url && DOMAIN_REGEX.test(url)) ? true : false;
+  (url && URLISH_REGEX.test(url)) ? true : false;
 
 const estimateDownloadTime = (store, results) =>
   Math.max(results.contentSize / store.get().ourResults.downloadSpeed, 50);
