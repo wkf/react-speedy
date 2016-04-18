@@ -101,19 +101,19 @@ const ResultsTable = ({store}) => {
   const results = [
     [
       alwaysShow,
-      "HTML download time",
+      "Time to download HTML",
       theirResults.downloadTime,
       ourResults.downloadTime,
-      "The time it takes before the whole HTML page has been downloaded by the browser. Scripts included at the end of the page won't start loading at all before this point. The DOMContentLoaded event on the page won't fire before this step has been completed. Typically any JavaScript you run on the page, won't start doing things before this phase is complete.",
+      "This is the time it takes to download the entire HTML page. The DOMContentLoaded event does not fire until this has completed, so JavaScript apps will typically not run until after this phase is complete.",
       formatMs,
       compareMs
     ],
     [
       alwaysShow,
-      "HTTPS?",
+      "Server supports HTTPS",
       theirResults.usesHttps ? yes : no,
       ourResults.usesHttps ? yes : no,
-      "Hyper Text Transfer Protocol Secure (HTTPS) is the secure version of HTTP, the protocol over which data is sent between your browser and the website that you are connected to. It means all communications between your browser and the website are encrypted.",
+      "This determines if your site supports HTTPS, which improves search rank, gives access to better analytics, protects content and users from man-in-the-middle attacks, and ensures access to technologies that don't allow insecure HTTP.",
       formatNoop,
       compareBool
     ],
@@ -122,7 +122,7 @@ const ResultsTable = ({store}) => {
       "DNS time",
       theirResults.dnsTime,
       ourResults.dnsTime,
-      "Every new visitor to your site will need to do a DNS lookup before their browser can even start connecting to your site. Some setups requires multiple DNS lookups before the browser can get the final IP address to connect to, so if your DNS is slow, new visitors to your site will have to wait for the DNS lookups to complete.",
+      "Every time someone visits your site, their browser looks up your site’s IP address before it loads the page, and may happen multiple times. Slow DNS increases the time before your visitors see your content.",
       formatMs,
       compareMs
     ],
@@ -131,7 +131,7 @@ const ResultsTable = ({store}) => {
       "Time to first byte",
       theirResults.timeToFirstByte,
       ourResults.timeToFirstByte,
-      "This is a very important metric for performance. It's the time it takes from the browser starts connecting to the IP address returned by the DNS lookup, and until it starts receiving HTML. This is the point where the browser has the chance to start parsing and rendering things on the screen.",
+      "This is an important meteric that measures the time it takes between when your visitor’s browser connects to your site and when it starts to receive HTML.",
       formatMs,
       compareMs
     ],
@@ -140,7 +140,7 @@ const ResultsTable = ({store}) => {
       "HTTPS handshake time",
       theirResults.httpsTime,
       ourResults.httpsTime,
-      "If HTTPS is enabled, this is the time it takes to negotiate the encrypted connection between the browser and the server at the IP address returned from the DNS lookup.",
+      "This is the time it takes a visitor’s browser and your website’s IP address to negotiate an encrypted HTTPS connection.",
       formatMs,
       compareMs
     ]
