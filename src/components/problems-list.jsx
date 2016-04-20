@@ -12,21 +12,21 @@ const makeProblem = ([cause, severity, link], i) => {
   );
 };
 
-const ProblemsList = ({store}) => {
+const ProblemsList = ({ourResults, theirResults}) => {
   const problems = [
     [
       "Add SSL to improve your search rank and protects your content and users.",
       "critical",
       "https://www.netlify.com/blog/2014/10/03/five-reasons-you-want-https-for-your-static-site",
-      (store) => !store.get().theirResults.usesHttps
+      (ours, theirs) => !theirs.usesHttps
     ],
     [
       "Switch to HTTP2 to improve your site’s performance.",
       "normal",
       null,
-      (store) => !store.get().theirResults.usesHttp2
+      (ours, theirs) => !theirs.usesHttp2
     ]
-  ].filter(([c, s, l, shouldShow]) => shouldShow(store)).map(makeProblem);
+  ].filter(([c, s, l, shouldShow]) => shouldShow(ourResults, theirResults)).map(makeProblem);
 
   if (problems.length > 0) {
     return (

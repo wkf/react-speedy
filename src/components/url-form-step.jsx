@@ -1,49 +1,16 @@
 import classNames from 'classnames';
-import {testSite, testSiteStub} from '../modules/speedy-api';
 
-// Should accept url-ish strings with an optional scheme, domain name, ip, and port
-const URLISH_REGEX = /^(https?:\/\/)?([a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+|(\d{1,3}\.){3}\d{1,3})(\:\d+)?$/;
-
-const validateUrl = (url) =>
-  (url && URLISH_REGEX.test(url)) ? true : false;
-
-const estimateDownloadTime = (store, results) =>
-  Math.max(results.contentSize / store.get().ourResults.downloadSpeed, 50);
-
-const updateResults = (store, results) =>
-  store.update({
-    resultsLoaded: {$set: true},
-    theirResults: {$set: results},
-    ourResults: {
-      downloadTime: {$set: estimateDownloadTime(store, results)}
-    }
-  });
-
-const updateError = (store, error) =>
-  store.update({
-    apiError: {$set: error}
-  });
-
-const onGo = ({store, nextStep}, e) => {
-  const {url, isValidUrl} = store.get();
-
+const onGo = ({url, isValidUrl, runSpeedtest, nextStep}, e) => {
   e.preventDefault();
 
   if (isValidUrl) {
-    testSite(
-      url,
-      updateResults.bind(null, store),
-      updateError.bind(null, store)
-    );
+    runSpeedtest(url);
     nextStep();
   }
 };
 
-const onChange = ({store}, e) =>
-  store.update({
-    url: {$set: e.target.value},
-    isValidUrl: {$set: validateUrl(e.target.value)}
-  });
+const onChange = ({updateUrlish}, e) =>
+  updateUrlish(e.target.value);
 
 const UrlFormStep = (props) => (
   <section className="bb bb-muted mt-90 mb-90">
@@ -58,9 +25,9 @@ const UrlFormStep = (props) => (
             required={true}
             placeholder="example.com"
             className={classNames({
-                'form-input--invalid': props.store.get().isValidUrl === false
+                'form-input--invalid': props.isValidUrl === false
               })}
-            value={props.store.get().url}
+            value={props.url}
             onChange={onChange.bind(null, props)}
         />
       </p>

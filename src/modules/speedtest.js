@@ -10,8 +10,8 @@ const STUB_RESULTS = {
 };
 
 const STUB_TIMEOUT = 5000;
-
 const API_BASE_URL = 'https://api.netlify.com/api/v1/';
+const DOWNLOAD_SPEED = 610;
 
 export const testSiteStub = (url, onSuccess, onError) => {
   console.log('Waiting ' + STUB_TIMEOUT + 'ms, and then returning stubbed results!');
@@ -32,7 +32,7 @@ const parseResponse = (res) => {
   return res.json();
 };
 
-const createSpeedTest = ({url}) => {
+const createSpeedtest = ({url}) => {
   return window.fetch(API_BASE_URL + 'speed_tests', {
     method: 'POST',
     headers: {
@@ -45,7 +45,7 @@ const createSpeedTest = ({url}) => {
 
 const delay = (ms) => new Promise((resolve, reject) => window.setTimeout(resolve, ms));
 
-const getSpeedTest = ({id}) => {
+const getSpeedtest = ({id}) => {
   return window.fetch(API_BASE_URL + 'speed_tests/' + id, {
     method: 'GET',
     headers: {
@@ -57,6 +57,9 @@ const getSpeedTest = ({id}) => {
 
 const nsToMs = (ns) => ns / 1000000;
 const averageForKey = (rs, k) => rs.reduce((acc, r) => acc + r[k], 0) / rs.length;
+
+const estimateDownloadTime = (contentSize) =>
+  Math.max(contentSize / DOWNLOAD_SPEED, 50);
 
 const parseResults = (results) => {
   const _results =  Object.keys(results).map((k) => {
@@ -72,36 +75,77 @@ const parseResults = (results) => {
     };
   });
 
+  const contentSize = averageForKey(_results, 'contentSize');
+
   return {
-    contentSize: averageForKey(_results, 'contentSize'),
-    dnsTime: averageForKey(_results, 'dnsTime'),
-    connectionTime: averageForKey(_results, 'connectionTime'),
-    timeToFirstByte: averageForKey(_results, 'timeToFirstByte'),
-    downloadTime: averageForKey(_results, 'downloadTime'),
-    httpsTime: averageForKey(_results, 'httpsTime'),
-    usesHttps: _results.reduce((acc, r) => acc || r.usesHttps, false),
-    badCertificates: _results.reduce((acc, r) => acc || r.badCertificates, false)
-  };
+    ourResults: {
+      dnsTime: 0.5,
+      connectionTime: 2,
+      timeToFirstByte: 2,
+      downloadTime: estimateDownloadTime(contentSize),
+      usesHttps: true,
+      usesHttp2: true,
+      httpsTime: 2,
+      usesSecureCipher: true,
+      usesSecureAlgorithm: true
+    },
+    theirResults: {
+      contentSize: averageForKey(_results, 'contentSize'),
+      dnsTime: averageForKey(_results, 'dnsTime'),
+      connectionTime: averageForKey(_results, 'connectionTime'),
+      timeToFirstByte: averageForKey(_results, 'timeToFirstByte'),
+      downloadTime: averageForKey(_results, 'downloadTime'),
+      httpsTime: averageForKey(_results, 'httpsTime'),
+      usesHttps: _results.reduce((acc, r) => acc || r.usesHttps, false),
+      badCertificates: _results.reduce((acc, r) => acc || r.badCertificates, false)
+    }};
 };
 
-const waitForSpeedTests = (updateResults, {id}, retries = 10, r = 0) => {
-  getSpeedTest({id}).then(({results}) => {
+const waitForSpeedtests = (updateResults, {id}, retries = 10, r = 0) => {
+  getSpeedtest({id}).then(({results}) => {
 
     if (Object.keys(results).length > 0 ) {
       updateResults(parseResults(results));
     }
 
     if (r < retries) {
-      return delay(500).then(() => waitForSpeedTests(updateResults, {id}, retries, r + 1));
+      return delay(500).then(() => waitForSpeedtests(updateResults, {id}, retries, r + 1));
     } else {
+      //******************
+      // updateResults({
+      //   ourResults: {
+      //     dnsTime: 0.5,
+      //     connectionTime: 2,
+      //     timeToFirstByte: 2,
+      //     downloadTime: 100,
+      //     usesHttps: true,
+      //     usesHttp2: true,
+      //     httpsTime: 2,
+      //     usesSecureCipher: true,
+      //     usesSecureAlgorithm: true
+      //   },
+      //   theirResults: {
+      //     dnsTime: 10,
+      //     connectionTime: 20,
+      //     timeToFirstByte: 200,
+      //     downloadTime: 1000,
+      //     usesHttps: false,
+      //     usesHttp2: false,
+      //     httpsTime: 2,
+      //     usesSecureCipher: false,
+      //     usesSecureAlgorithm: false
+      //   }
+      // });
+      //******************
+
       return retries;
     }
   });
 };
 
-export const testSite = (url, onUpdate, onError) => {
-  createSpeedTest({url})
-    .then(waitForSpeedTests.bind(null, onUpdate))
+export const runSpeedtestOnSite = (url, onUpdate, onError) => {
+  createSpeedtest({url})
+    .then(waitForSpeedtests.bind(null, onUpdate))
     .catch((e) => {
       console.log('Error response from API server:', e);
       onError(e);

@@ -1,25 +1,20 @@
-import Loader from 'react-loader';
-
+import Loader from './loader';
 import StatsList from './stats-list.jsx';
 import ResultsTable from './results-table.jsx';
 import ProblemsList from './problems-list.jsx';
 import BenefitsList from './benefits-list.jsx';
 
-import {LOADER_OPTIONS} from '../constants';
-
-const ResultsStep = ({store}) => {
-  const {url, resultsLoaded, apiError} = store.get();
-
+const ResultsStep = ({url, resultsLoaded, apiError, ourResults, theirResults, answers}) => {
   const results = apiError ? (
     <section className="results-error">
       Oops! Something went wrong. Refresh the page and try again.
     </section>
   ) : (
-    <Loader parentClassName="spinner" loaded={resultsLoaded} options={LOADER_OPTIONS}>
-      <StatsList store={store}/>
-      <ResultsTable store={store}/>
-      <ProblemsList store={store}/>
-      <BenefitsList store={store}/>
+    <Loader loaded={resultsLoaded}>
+      <StatsList ourResults={ourResults} theirResults={theirResults}/>
+      <ResultsTable ourResults={ourResults} theirResults={theirResults}/>
+      <ProblemsList ourResults={ourResults} theirResults={theirResults}/>
+      <BenefitsList answers={answers}/>
       <section>
         <a className="pill-button" href="https://app.netlify.com">See how easy it is to switch</a>
       </section>

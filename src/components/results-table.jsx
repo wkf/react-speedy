@@ -1,15 +1,8 @@
-import Popover from 'react-popover';
-import Tappable from 'react-tappable';
+import Popover from '../containers/popover';
 
 const no = <svg className="icon icon--error"><use xlinkHref="#icon-error"/></svg>;
 const yes = <svg className="icon icon--check"><use xlinkHref="#icon-check"/></svg>;
 const info = <svg className="icon icon--info"><use xlinkHref="#icon-info"/></svg>;
-
-const isVisiblePopover = (id, {store}) =>
-  store.get().visiblePopoverId === id;
-
-const togglePopover = (id, {store}) =>
-  store.update({visiblePopoverId: {$set: isVisiblePopover(id, {store}) ? null : id}});
 
 const makeEntries = ([theirs, ours, format, compare]) => {
   const [_theirs, _ours] = [format(theirs), format(ours)];
@@ -33,23 +26,14 @@ const makeEntries = ([theirs, ours, format, compare]) => {
   }
 };
 
-const makeRow = ([show, header, theirs, ours, infoText, format, compare, store], i) => {
+const makeRow = ([show, header, theirs, ours, infoText, format, compare], i) => {
   const id = "row" + i;
   const [theirEntry, ourEntry] = makeEntries([theirs, ours, format, compare]);
 
   return (
     <tr key={id}>
       <th className="results-table__row-header" scope="row">
-        <Popover
-            place="right"
-            body={infoText}
-            isOpen={isVisiblePopover(id, {store})}
-            onOuterAction={togglePopover.bind(null, id, {store})}
-        >
-          <Tappable className="toggle" onTap={togglePopover.bind(null, id, {store})}>
-            {header}{info}
-          </Tappable>
-        </Popover>
+        <Popover id={id} text={infoText}>{header}{info}</Popover>
       </th>
       {theirEntry}
       {ourEntry}
@@ -92,12 +76,10 @@ const compareBool = (x, y) => {
   }
 };
 
-const alwaysShow = (store) => true;
-const usesHttps = (store) =>  store.get().theirResults.usesHttps;
+const alwaysShow = () => true;
+const usesHttps = (ourResults, theirResults) => theirResults.usesHttps;
 
-const ResultsTable = ({store}) => {
-  const {url, ourResults, theirResults} = store.get();
-
+const ResultsTable = ({url, ourResults, theirResults}) => {
   const results = [
     [
       alwaysShow,
@@ -144,7 +126,7 @@ const ResultsTable = ({store}) => {
       formatMs,
       compareMs
     ]
-  ].filter(([shouldShow]) => shouldShow(store)).map(xs => xs.concat(store)).map(makeRow);
+  ].filter(([shouldShow]) => shouldShow(ourResults, theirResults)).map(makeRow);
 
   return (
     <section className="results">

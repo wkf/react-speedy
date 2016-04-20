@@ -8,11 +8,11 @@ const makeBenefit = ([description, link], i) => {
   );
 };
 
-const alwaysShow = (store) => true;
-const usesRails = (store) => store.get().questions[1].selected === 'Rails';
-const usesWordpress = (store) => store.get().questions[1].selected === 'Wordpress';
+const alwaysShow = () => true;
+const usesRails = (answers) => answers[1] === 'Rails';
+const usesWordpress = (answers) => answers[1] === 'Wordpress';
 
-const BenefitsList = ({store}) => {
+const BenefitsList = (answers) => {
   const benefits = [
     [
       "With Netlify, get HTTPS and HTTP2 for free with one click.",
@@ -34,7 +34,7 @@ const BenefitsList = ({store}) => {
       null,
       usesRails
     ]
-  ].filter(([d, l, shouldShow]) => shouldShow(store)).map(makeBenefit);
+  ].filter(([d, l, shouldShow]) => shouldShow(answers)).map(makeBenefit);
 
   if (benefits.length > 0) {
     return (
