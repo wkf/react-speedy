@@ -1,12 +1,9 @@
 import classNames from 'classnames';
+import {validateUrlish} from '../modules/urlish';
 
-const onGo = ({url, isValidUrl, runSpeedtest, nextStep}, e) => {
+const onGo = ({urlish, isValidUrl, runSpeedtest}, e) => {
   e.preventDefault();
-
-  if (isValidUrl) {
-    runSpeedtest(url);
-    nextStep();
-  }
+  validateUrlish(urlish) && runSpeedtest(urlish);
 };
 
 const onChange = ({updateUrlish}, e) =>
@@ -25,9 +22,9 @@ const UrlFormStep = (props) => (
             required={true}
             placeholder="example.com"
             className={classNames({
-                'form-input--invalid': props.isValidUrl === false
+                'form-input--invalid': props.urlish && validateUrlish(props.urlish) === false
               })}
-            value={props.url}
+            value={props.urlish}
             onChange={onChange.bind(null, props)}
         />
       </p>

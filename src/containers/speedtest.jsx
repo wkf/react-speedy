@@ -1,82 +1,72 @@
+import React from 'react';
 import {connect} from 'react-redux';
-import Workflow from './workflow';
 import UrlFormStep from '../components/url-form-step';
 import QuestionStep from '../components/question-step';
 import ResultsStep from '../components/results-step';
 import {
-  updateUrlish, runSpeedtest, answerQuestion
+  updateUrlish,
+  runSpeedtest,
+  answerQuestion,
+  syncLocationToStore
 } from '../actions/speedtest';
+import {validateUrlish} from '../modules/urlish';
 
 const questions = [
   {
     number: 0,
     title: 'Is your site static?',
-    options: ['Yes', 'No', 'Not Sure']
+    options: ['Yes', 'No', 'Not Sure'],
+    show: (as) => !as[0]
   },
   {
     number: 1,
     title: 'Is your site mode with any of these tools?',
-    options: ['Wordpress', 'Drupal', 'Joomla', 'Xpress', 'Rails', 'Other', 'Not Sure']
+    options: ['Wordpress', 'Drupal', 'Joomla', 'Xpress', 'Rails', 'Other', 'Not Sure'],
+    show: (as) => !as[1] && as[0] !== 'Yes'
   }
 ];
 
-const Speedtest = (props) => (
-  <Workflow>
-    <UrlFormStep
-        key="url-form"
-        url={props.url}
-        isValidUrl={props.isValidUrl}
-        updateUrlish={props.updateUrlish}
-        runSpeedtest={props.runSpeedtest}
-    />
-    <QuestionStep
-        key="question-0"
-        url={props.url}
-        question={questions[0]}
-        answer={props.answers[0]}
-        resultsLoaded={props.resultsLoaded}
-        answerQuestion={props.answerQuestion}
-    />
-    <QuestionStep
-        key="question-1"
-        url={props.url}
-        question={questions[1]}
-        answer={props.answers[1]}
-        show={props.showQuestion1}
-        resultsLoaded={props.resultsLoaded}
-        answerQuestion={props.answerQuestion}
-    />
-    <ResultsStep
-        key="displaying-results"
-        url={props.url}
-        apiError={props.apiError}
-        resultsLoaded={props.resultsLoaded}
-        ourResults={props.ourResults}
-        theirResults={props.theirResults}
-        answers={props.answers}
-    />
-  </Workflow>
+const makeQuestionStep = (props, question) => (
+  <QuestionStep {...props}
+    key={"question-" + question.number}
+    question={question}
+    answer={props.answers[question.number]}
+    show={question.show(props.answers)}
+  />
 );
 
-const mapStateToProps = ({
-  speedtest: {
-    url, isValidUrl, resultsLoaded, apiError, ourResults, theirResults, answers
+class Speedtest extends React.Component {
+  componentDidMount() {
+    const {location, runSpeedtest, syncLocationToStore} = this.props;
+
+    syncLocationToStore(location);
+    validateUrlish(location.query.u) && runSpeedtest(location.query.u);
   }
-}) => ({
-  url,
-  isValidUrl,
-  resultsLoaded,
-  apiError,
-  ourResults,
-  theirResults,
-  answers,
-  showQuestion1: (questions[0].selected !== 'Yes')
-});
+
+  componentWillUnmount() {
+    // TODO: abort speedtest
+  }
+
+  render() {
+    const steps = [
+      <UrlFormStep {...this.props} key="url-form" show={!this.props.url}/>,
+      makeQuestionStep(this.props, questions[0]),
+      makeQuestionStep(this.props, questions[1]),
+      <ResultsStep {...this.props} key="displaying-results"/>
+    ];
+
+    return steps.filter((c) => c.props.show !== false)[0];
+  }
+}
+
+const mapStateToProps = ({speedtest}, {location}) =>
+  Object.assign({}, speedtest, {location});
 
 const mapDispatchToProps = dispatch => ({
+  runSpeedtest: (url) => dispatch(runSpeedtest(url)),
   updateUrlish: (urlish) => dispatch(updateUrlish(urlish)),
-  runSpeedtest: (urlish) => dispatch(runSpeedtest(urlish)),
-  answerQuestion: (id, answer) => dispatch(answerQuestion(id, answer))
+  answerQuestion: (id, answer) => dispatch(answerQuestion(id, answer)),
+  syncLocationToStore: (location) => dispatch(syncLocationToStore(location))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Speedtest);

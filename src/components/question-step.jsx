@@ -1,8 +1,7 @@
 import Loader from './loader';
 
-const onSelect = ({question, answerQuestion, nextStep}, e) => {
+const onSelect = ({question, answerQuestion}, e) => {
   answerQuestion(question.number, e.target.value);
-  nextStep();
 };
 
 const QuestionStep = (props) => {

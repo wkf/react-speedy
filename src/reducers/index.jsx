@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
+import {routerReducer} from 'react-router-redux';
 import popoverReducer from './popover';
-import workflowReducer from './workflow';
 import speedtestReducer from './speedtest';
 
 export default combineReducers({
+  routing: routerReducer,
   popover: popoverReducer,
-  workflow: workflowReducer,
   speedtest: speedtestReducer
 });
