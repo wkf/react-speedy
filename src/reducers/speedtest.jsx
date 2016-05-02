@@ -2,6 +2,10 @@ import update from 'react-addons-update';
 
 export default (state = {answers: []}, action) => {
   switch (action.type) {
+    case 'UPDATE_ID':
+      return update(state, {
+        id: {$set: action.id}
+      });
     case 'UPDATE_URL':
       return update(state, {
         url: {$set: action.url}
@@ -26,6 +30,7 @@ export default (state = {answers: []}, action) => {
       });
     case 'SYNC_LOCATION_TO_STORE':
       return update(state, {
+        id: {$set: action.id},
         urlish: {$set: action.urlish},
         answers: {$set: action.answers}
       });

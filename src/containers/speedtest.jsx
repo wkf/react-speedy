@@ -7,7 +7,7 @@ import {
   updateUrlish,
   runSpeedtest,
   answerQuestion,
-  syncLocationToStore
+  syncRouteToStore
 } from '../actions/speedtest';
 import {validateUrlish} from '../modules/urlish';
 
@@ -37,10 +37,11 @@ const makeQuestionStep = (props, question) => (
 
 class Speedtest extends React.Component {
   componentDidMount() {
-    const {location, runSpeedtest, syncLocationToStore} = this.props;
+    const {route, runSpeedtest, syncRouteToStore} = this.props;
 
-    syncLocationToStore(location);
-    validateUrlish(location.query.u) && runSpeedtest(location.query.u);
+    syncRouteToStore(route);
+    validateUrlish(route.location.query.u)
+      && runSpeedtest(route.location.query.u, route.params.id);
   }
 
   componentWillUnmount() {
@@ -59,14 +60,14 @@ class Speedtest extends React.Component {
   }
 }
 
-const mapStateToProps = ({speedtest}, {location}) =>
-  Object.assign({}, speedtest, {location});
+const mapStateToProps = ({speedtest}, route) =>
+  Object.assign({}, speedtest, {route});
 
 const mapDispatchToProps = dispatch => ({
-  runSpeedtest: (url) => dispatch(runSpeedtest(url)),
+  runSpeedtest: (url, id) => dispatch(runSpeedtest(url, id)),
   updateUrlish: (urlish) => dispatch(updateUrlish(urlish)),
   answerQuestion: (id, answer) => dispatch(answerQuestion(id, answer)),
-  syncLocationToStore: (location) => dispatch(syncLocationToStore(location))
+  syncRouteToStore: (location) => dispatch(syncRouteToStore(location))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Speedtest);

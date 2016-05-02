@@ -1,12 +1,12 @@
 import {push} from 'react-router-redux';
 import {validateUrlish} from '../modules/urlish';
-import {runSpeedtestOnSite} from '../modules/speedtest';
+import {createSpeedtest, waitForSpeedtests} from '../modules/speedtest';
 
-export const syncStoreToLocation = () =>
+export const syncStoreToRoute = () =>
   (dispatch, getState) => {
     const {speedtest} = getState();
     dispatch(push({
-      pathname: 'speedtest',
+      pathname: '/speedtest' + (speedtest.id ? '/' + speedtest.id : ''),
       query: {
         u: speedtest.urlish,
         a0: speedtest.answers[0],
@@ -15,18 +15,27 @@ export const syncStoreToLocation = () =>
     }));
   };
 
-export const syncLocationToStore = (location) => ({
+export const syncRouteToStore = (route) => ({
   type: 'SYNC_LOCATION_TO_STORE',
-  urlish: location.query.u,
+  id: route.params.id,
+  urlish: route.location.query.u,
   answers: [
-    location.query.a0,
-    location.query.a1
+    route.location.query.a0,
+    route.location.query.a1
   ]
 });
 
-export const updateUrl = (url) => ({
-  type: 'UPDATE_URL', url
-});
+export const updateId = (id) =>
+  (dispatch) => {
+    dispatch({type: 'UPDATE_ID', id});
+    dispatch(syncStoreToRoute());
+  };
+
+export const updateUrl = (url) =>
+  (dispatch) => {
+    dispatch({type: 'UPDATE_URL', url});
+    dispatch(syncStoreToRoute());
+  };
 
 export const updateUrlish = (urlish) => ({
   type: 'UPDATE_URLISH', urlish
@@ -35,7 +44,7 @@ export const updateUrlish = (urlish) => ({
 export const answerQuestion = (id, answer) =>
   (dispatch) => {
     dispatch({type: 'ANSWER_QUESTION', id, answer});
-    dispatch(syncStoreToLocation());
+    dispatch(syncStoreToRoute());
   };
 
 export const updateSpeedtestResults = (ourResults, theirResults) => ({
@@ -46,17 +55,22 @@ export const updateSpeedtestError = (error) => ({
   type: 'UPDATE_SPEEDTEST_ERROR', error
 });
 
-export const runSpeedtest = (url) =>
+const maybeCreateSpeedtest = (url, id) =>
+  id ? Promise.resolve({id}) : createSpeedtest({url});
+
+export const runSpeedtest = (url, id) =>
   (dispatch) => {
     if(validateUrlish(url)) {
       dispatch(updateUrl(url));
-      dispatch(syncStoreToLocation());
-      return runSpeedtestOnSite(
-        url,
-        ({ourResults, theirResults}) =>
-          dispatch(updateSpeedtestResults(ourResults, theirResults)),
-        (error) => dispatch(updateSpeedtestError(error))
-      );
+      maybeCreateSpeedtest(url, id).then(({id}) => {
+        dispatch(updateId(id));
+        return waitForSpeedtests(
+          ({ourResults, theirResults}) =>
+            dispatch(updateSpeedtestResults(ourResults, theirResults)),
+          {id});
+      }).catch((e) => {
+        throw new Error('Action Error - runSpeedtest got error from server.', e);
+      });
     } else {
       throw new Error('Action Error - runSpeedtest called with invalid URL.');
     }

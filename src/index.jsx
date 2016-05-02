@@ -12,7 +12,9 @@ const history = syncHistoryWithStore(browserHistory, store);
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/speedtest" component={Speedtest}/>
+      <Route path="/speedtest" component={Speedtest}>
+        <Route path=":id" component={Speedtest}/>
+      </Route>
     </Router>
   </Provider>,
   document.getElementsByClassName('js-speedy')[0]);

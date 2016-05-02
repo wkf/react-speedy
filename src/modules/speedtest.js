@@ -32,7 +32,7 @@ const parseResponse = (res) => {
   return res.json();
 };
 
-const createSpeedtest = ({url}) => {
+export const createSpeedtest = ({url}) => {
   return window.fetch(API_BASE_URL + 'speed_tests', {
     method: 'POST',
     headers: {
@@ -101,7 +101,7 @@ const parseResults = (results) => {
     }};
 };
 
-const waitForSpeedtests = (updateResults, {id}, retries = 10, r = 0) => {
+export const waitForSpeedtests = (updateResults, {id}, retries = 10, r = 0) => {
   getSpeedtest({id}).then(({results}) => {
 
     if (Object.keys(results).length > 0 ) {
@@ -111,33 +111,6 @@ const waitForSpeedtests = (updateResults, {id}, retries = 10, r = 0) => {
     if (r < retries) {
       return delay(500).then(() => waitForSpeedtests(updateResults, {id}, retries, r + 1));
     } else {
-      //******************
-      // updateResults({
-      //   ourResults: {
-      //     dnsTime: 0.5,
-      //     connectionTime: 2,
-      //     timeToFirstByte: 2,
-      //     downloadTime: 100,
-      //     usesHttps: true,
-      //     usesHttp2: true,
-      //     httpsTime: 2,
-      //     usesSecureCipher: true,
-      //     usesSecureAlgorithm: true
-      //   },
-      //   theirResults: {
-      //     dnsTime: 10,
-      //     connectionTime: 20,
-      //     timeToFirstByte: 200,
-      //     downloadTime: 1000,
-      //     usesHttps: false,
-      //     usesHttp2: false,
-      //     httpsTime: 2,
-      //     usesSecureCipher: false,
-      //     usesSecureAlgorithm: false
-      //   }
-      // });
-      //******************
-
       return retries;
     }
   });
